@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bgA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+    <linearGradient id="gw" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1c22"/>
+      <stop offset="1" stop-color="#15151a"/>
+    </linearGradient>
+    <linearGradient id="rd" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2a4d"/>
+      <stop offset="1" stop-color="#b8001e"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff2a4d"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bgA)"/>
+
+  <text x="640" y="48" font-family="'DejaVu Sans Mono',monospace" font-size="22" fill="#ffffff" text-anchor="middle" letter-spacing="6">ARQUITETURA DA APLICAÇÃO</text>
+  <line x1="320" y1="62" x2="960" y2="62" stroke="#c4001f" stroke-width="2"/>
+
+  <g transform="translate(90,120)">
+    <rect width="170" height="70" rx="4" fill="#1a1a20" stroke="#33333a" stroke-width="1.5"/>
+    <text x="85" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="13" fill="#ffffff" text-anchor="middle">CLIENTE</text>
+    <text x="85" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">mobile / web</text>
+  </g>
+
+  <line x1="260" y1="155" x2="330" y2="155" stroke="#ff2a4d" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="295" y="143" font-family="'DejaVu Sans Mono',monospace" font-size="9" fill="#8a8a93" text-anchor="middle">HTTPS</text>
+
+  <g transform="translate(350,120)">
+    <rect width="190" height="70" rx="4" fill="url(#gw)" stroke="#ff2a4d" stroke-width="2"/>
+    <text x="95" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="13" fill="#ff2a4d" text-anchor="middle">API GATEWAY</text>
+    <text x="95" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">TLS 1.3 · CORS · headers</text>
+  </g>
+
+  <line x1="540" y1="155" x2="610" y2="155" stroke="#ff2a4d" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="575" y="143" font-family="'DejaVu Sans Mono',monospace" font-size="9" fill="#8a8a93" text-anchor="middle">JWT</text>
+
+  <g transform="translate(630,120)">
+    <rect width="190" height="70" rx="4" fill="url(#gw)" stroke="#33333a" stroke-width="1.5"/>
+    <text x="95" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="13" fill="#ffffff" text-anchor="middle">SERVIÇO DE AUTH</text>
+    <text x="95" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">login · refresh · RBAC</text>
+  </g>
+
+  <line x1="820" y1="155" x2="890" y2="155" stroke="#ff2a4d" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="855" y="143" font-family="'DejaVu Sans Mono',monospace" font-size="9" fill="#8a8a93" text-anchor="middle">RBAC</text>
+
+  <g transform="translate(910,120)">
+    <rect width="190" height="70" rx="4" fill="url(#gw)" stroke="#33333a" stroke-width="1.5"/>
+    <text x="95" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="13" fill="#ffffff" text-anchor="middle">ADMIN</text>
+    <text x="95" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">somente admin / suporte</text>
+  </g>
+
+  <line x1="260" y1="270" x2="390" y2="270" stroke="#4a4a55" stroke-width="2" marker-end="url(#arrow)"/>
+  <g transform="translate(50,240)">
+    <rect width="210" height="64" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="105" y="27" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">MÓDULO DE LOJA</text>
+    <text x="105" y="45" font-family="'DejaVu Sans',sans-serif" font-size="9" fill="#8a8a93" text-anchor="middle">catálogo · menus · favoritos</text>
+  </g>
+
+  <g transform="translate(430,240)">
+    <rect width="210" height="64" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="105" y="27" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">MÓDULO DE PEDIDOS</text>
+    <text x="105" y="45" font-family="'DejaVu Sans',sans-serif" font-size="9" fill="#8a8a93" text-anchor="middle">carrinho · máquina de estados · cupons</text>
+  </g>
+
+  <g transform="translate(810,240)">
+    <rect width="210" height="64" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="105" y="27" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">MÓDULO DE PAGAMENTOS</text>
+    <text x="105" y="45" font-family="'DejaVu Sans',sans-serif" font-size="9" fill="#8a8a93" text-anchor="middle">webhooks Asaas · config</text>
+  </g>
+
+  <g transform="translate(1070,240)">
+    <rect width="150" height="64" rx="4" fill="#15151a" stroke="#ff2a4d" stroke-width="1.5"/>
+    <text x="75" y="27" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ff2a4d" text-anchor="middle">WEBHOOKS</text>
+    <text x="75" y="45" font-family="'DejaVu Sans',sans-serif" font-size="9" fill="#8a8a93" text-anchor="middle">eventos asaas</text>
+  </g>
+
+  <g transform="translate(640,380)">
+    <rect width="300" height="78" rx="6" fill="#0e0e12" stroke="#ff2a4d" stroke-width="2"/>
+    <text x="150" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="14" fill="#ff2a4d" text-anchor="middle">DATA STORE</text>
+    <text x="150" y="52" font-family="'DejaVu Sans',sans-serif" font-size="11" fill="#c9c9d0" text-anchor="middle">PostgreSQL · ownership checks</text>
+    <text x="150" y="68" font-family="'DejaVu Sans Mono',monospace" font-size="10" fill="#8a8a93" text-anchor="middle">store.OwnerID == requesterID</text>
+  </g>
+
+  <line x1="745" y1="304" x2="790" y2="380" stroke="#4a4a55" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="640" y1="304" x2="700" y2="380" stroke="#4a4a55" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <g transform="translate(640,510)">
+    <rect width="300" height="58" rx="6" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="150" y="25" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">REDIS · RATE LIMIT</text>
+    <text x="150" y="43" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">10/min auth · 60/min catalog</text>
+  </g>
+  <line x1="790" y1="458" x2="790" y2="510" stroke="#4a4a55" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <text x="640" y="640" font-family="'DejaVu Sans',sans-serif" font-size="11" fill="#8a8a93" text-anchor="middle">130 endpoints · Go/Gin · 3 roles (customer · store_owner · admin) · OAuth providers (conditional)</text>
+  <line x1="300" y1="668" x2="980" y2="668" stroke="#33333a" stroke-width="1"/>
+</svg>

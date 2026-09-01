@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Security Assessment Report — Public Portfolio Edition</title>
+<style>
+:root{
+  --bg:#0d0d0f; --panel:#151519; --panel2:#1b1b21; --line:#2a2a31;
+  --white:#ffffff; --gray:#8a8a93; --gray2:#b4b4bd;
+  --red:#ff2a4d; --red2:#c4001f; --red3:#7f0000;
+  --high:#ff2a4d; --medium:#e9a319; --low:#2d6a4f; --info:#5b5b66;
+}
+@page{ size:A4; margin:0; }
+@page content{
+  margin:26mm 15mm 20mm 15mm;
+  @bottom-left{ content:"AVALIAÇÃO DE SEGURANÇA — EDIÇÃO PÚBLICA DE PORTFÓLIO"; font-family:'DejaVu Sans Mono',monospace; font-size:6.5pt; color:#5b5b66; letter-spacing:1px; }
+  @bottom-right{ content:"PG " counter(page) " / " counter(pages); font-family:'DejaVu Sans Mono',monospace; font-size:7pt; color:#8a8a93; }
+  @top-right{ content:"CONFIDENCIALIDADE: SANITIZADO — DADOS DO CLIENTE REMOVIDOS"; font-family:'DejaVu Sans Mono',monospace; font-size:6pt; color:#5b5b66; letter-spacing:1px; }
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:'DejaVu Sans',sans-serif; color:#d7d7dc; background:#0d0d0f; font-size:8.8pt; line-height:1.4; }
+.page{ page-break-after:always; }
+.page:last-child{ page-break-after:auto; }
+.page-content{ page:content; }
+.mono{ font-family:'DejaVu Sans Mono',monospace; }
+
+/* ---------- COVER ---------- */
+.cover{ page:cover; width:210mm; height:297mm; background:#0d0d0f; position:relative; overflow:hidden; }
+.cover .bgline{ position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,#c4001f,transparent); }
+.cover .topline{ top:0; } .cover .botline{ bottom:0; }
+.cover .grid{ position:absolute; inset:0; opacity:0.05; background-image:linear-gradient(#ffffff 1px,transparent 1px),linear-gradient(90deg,#ffffff 1px,transparent 1px); background-size:22px 22px; }
+.cover .corner{ position:absolute; width:52px; height:52px; border:2px solid #c4001f; }
+.cover .c1{ top:18mm; left:18mm; border-right:none; border-bottom:none; }
+.cover .c2{ top:18mm; right:18mm; border-left:none; border-bottom:none; }
+.cover .c3{ bottom:18mm; left:18mm; border-right:none; border-top:none; }
+.cover .c4{ bottom:18mm; right:18mm; border-left:none; border-top:none; }
+.cover .logo{ width:64px; height:64px; margin:0 auto 10mm auto; }
+.cover .inner{ position:relative; text-align:center; padding-top:64mm; }
+.cover h1{ font-family:'DejaVu Sans Mono',monospace; font-weight:bold; font-size:26pt; color:#ffffff; letter-spacing:6px; }
+.cover h1 .accent{ color:#ff2a4d; }
+.cover .subtitle{ margin-top:4mm; font-size:11pt; color:#b4b4bd; letter-spacing:3px; }
+.cover .rule{ width:64mm; height:3px; background:#c4001f; margin:10mm auto; }
+.cover .meta{ margin-top:6mm; font-family:'DejaVu Sans Mono',monospace; font-size:8.5pt; color:#8a8a93; line-height:2; }
+.cover .meta b{ color:#ffffff; }
+.cover .badge{ display:inline-block; margin-top:14mm; padding:3mm 8mm; border:1px solid #ff2a4d; color:#ff2a4d; font-family:'DejaVu Sans Mono',monospace; font-size:8pt; letter-spacing:2px; }
+.cover .foot{ position:absolute; bottom:16mm; left:0; right:0; text-align:center; font-family:'DejaVu Sans Mono',monospace; font-size:6.5pt; color:#5b5b66; letter-spacing:2px; }
+
+/* ---------- TYPOGRAPHY ---------- */
+h2{ font-family:'DejaVu Sans Mono',monospace; font-size:14pt; color:#ffffff; letter-spacing:2px; margin-bottom:4mm; }
+h2 .num{ color:#ff2a4d; }
+h3{ font-family:'DejaVu Sans Mono',monospace; font-size:10.5pt; color:#ffffff; letter-spacing:1px; margin:5mm 0 3mm 0; }
+.sectionbar{ height:2px; background:linear-gradient(90deg,#c4001f,transparent); margin-bottom:8mm; }
+p{ margin-bottom:3mm; }
+.gray{ color:#8a8a93; } .white{ color:#ffffff; }
+.small{ font-size:8pt; } .tiny{ font-size:7pt; }
+
+/* ---------- PANELS ---------- */
+.panel{ background:#151519; border:1px solid #2a2a31; border-radius:2mm; padding:3.5mm 4mm; margin-bottom:3mm; }
+.panel-red{ border-left:3px solid #ff2a4d; }
+.kpi{ background:#151519; border:1px solid #2a2a31; border-radius:2mm; padding:3.5mm 3mm; text-align:center; }
+.kpi .v{ font-family:'DejaVu Sans Mono',monospace; font-size:18pt; font-weight:bold; color:#ff2a4d; }
+.kpi .l{ font-size:7.5pt; color:#8a8a93; letter-spacing:1px; text-transform:uppercase; margin-top:2mm; }
+.grid3{ display:flex; gap:4mm; } .grid3>*{ flex:1; }
+.grid4{ display:flex; gap:3mm; } .grid4>*{ flex:1; }
+
+/* ---------- SEVERITY BADGES ---------- */
+.sev{ display:inline-block; font-family:'DejaVu Sans Mono',monospace; font-weight:bold; font-size:7.5pt; padding:1.5mm 4mm; border-radius:1mm; letter-spacing:1px; }
+.sev-high{ background:#ff2a4d; color:#ffffff; } .sev-medium{ background:#e9a319; color:#0d0d0f; }
+.sev-low{ background:#2d6a4f; color:#ffffff; } .sev-info{ background:#5b5b66; color:#ffffff; }
+.sev-pass{ background:#2d6a4f; color:#ffffff; }
+
+/* ---------- TABLES ---------- */
+table{ width:100%; border-collapse:collapse; font-size:8.5pt; }
+th{ font-family:'DejaVu Sans Mono',monospace; text-align:left; font-size:7.5pt; letter-spacing:1px; color:#8a8a93; text-transform:uppercase; border-bottom:1px solid #c4001f; padding:2mm 2mm; }
+td{ border-bottom:1px solid #2a2a31; padding:2mm; vertical-align:top; }
+tr.pass td{ color:#9fd0a8; }
+.hrow td{ background:#151519; }
+
+/* ---------- CODE ---------- */
+pre{ font-family:'DejaVu Sans Mono',monospace; font-size:7.5pt; background:#101014; border:1px solid #2a2a31; border-radius:2mm; padding:3.5mm; overflow:hidden; white-space:pre-wrap; color:#b4b4bd; margin-bottom:4mm; }
+code{ font-family:'DejaVu Sans Mono',monospace; font-size:8pt; color:#ff8ba0; }
+
+/* ---------- LISTS ---------- */
+ul{ margin:0 0 4mm 6mm; } li{ margin-bottom:1.5mm; }
+.toc{ list-style:none; margin:0; }
+.toc li{ margin-bottom:2.5mm; padding-bottom:2.5mm; border-bottom:1px solid #232329; }
+.toc a{ color:#d7d7dc; text-decoration:none; font-family:'DejaVu Sans Mono',monospace; font-size:9pt; }
+.toc a:hover{ color:#ff2a4d; }
+.toc .no{ color:#ff2a4d; font-family:'DejaVu Sans Mono',monospace; }
+
+/* ---------- FINDING CARD ---------- */
+.fcard{ background:#151519; border:1px solid #2a2a31; border-radius:2mm; padding:4mm 5mm; }
+.fcard .fh{ display:flex; justify-content:space-between; align-items:center; margin-bottom:4mm; }
+.fcard .fh .ft{ font-family:'DejaVu Sans Mono',monospace; font-size:12pt; color:#ffffff; font-weight:bold; }
+.fcard .fh .fn{ font-family:'DejaVu Sans Mono',monospace; font-size:8pt; color:#8a8a93; }
+.metarow{ display:flex; gap:3mm; margin:3mm 0; }
+.metabox{ flex:1; background:#101014; border:1px solid #2a2a31; border-radius:1.5mm; padding:2.5mm 3mm; }
+.metabox .k{ font-family:'DejaVu Sans Mono',monospace; font-size:6.5pt; color:#8a8a93; letter-spacing:1px; text-transform:uppercase; }
+.metabox .val{ font-size:8pt; color:#ffffff; margin-top:1mm; }
+
+/* ---------- ICONS ---------- */
+.icon-check{ color:#2d6a4f; font-weight:bold; } .icon-x{ color:#ff2a4d; font-weight:bold; }
+
+/* ---------- MISC ---------- */
+.passbar{ background:#151519; border:1px solid #2a2a31; border-left:3px solid #2d6a4f; border-radius:2mm; padding:4mm 5mm; margin-bottom:3mm; }
+.footnote{ font-size:7pt; color:#5b5b66; border-top:1px solid #232329; margin-top:6mm; padding-top:3mm; }
+.big{ font-size:10.5pt; }
+.center{ text-align:center; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 : COVER ============ -->
+<div class="cover">
+  <div class="grid"></div>
+  <div class="bgline topline"></div><div class="bgline botline"></div>
+  <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+  <div class="inner">
+    <img class="logo" src="assets/logo-shield.svg">
+    <h1>AVALIAÇÃO DE <span class="accent">SEGURANÇA</span></h1>
+    <div class="subtitle">REST API — GO / GIN</div>
+    <div class="rule"></div>
+    <div class="meta">
+      EDIÇÃO PÚBLICA DE PORTFÓLIO<br>
+      <b>Engajamento:</b> Teste de Penetração Autorizado<br>
+      <b>Data:</b> 2026-08-29 &nbsp;·&nbsp; <b>Versão:</b> 1.0
+    </div>
+    <div class="badge">CONFIDENCIALIDADE: SANITIZADO</div>
+  </div>
+  <div class="foot">22 ACHADOS · 0 CRÍTICOS · 2 HIGH · 4 MEDIUM · 7 LOW · 9 INFO</div>
+</div>
+
+<!-- ============ PAGE 2 : CONFIDENTIALITY ============ -->
+<div class="page page-content">
+  <h2><span class="num">02</span> / CONFIDENCIALIDADE &amp; ESCOPO</h2>
+  <div class="sectionbar"></div>
+
+  <div class="panel">
+    <h3>Edição Pública Sanitizada</h3>
+    <p>This document is a <b class="white">deliberately sanitized</b> edition of an authorized
+    penetration-test report. All client-identifying information has been removed or masked:
+    product and company names, real hostnames, IP addresses, tax identifiers (CNPJ), e-mail
+    addresses, JWT values, request identifiers, and secrets.</p>
+    <p>A substância técnica — achados, severidade, formas de evidência e remediação — é
+    preservada intacta para que o relatório continue sendo uma verdadeira demonstração de
+    habilidade em assessment.</p>
+  </div>
+
+  <div class="panel panel-red">
+    <h3>Relatório Original — Confidencial</h3>
+    <p>O relatório completo do engajamento (nome do cliente, evidência completa, detalhe de
+    exploit live) <b>não</b> faz parte deste repositório. Pertence ao cliente e está protegido
+    pelos termos de não-divulgação do engajamento. Qualquer reprodução deste portfólio está
+    limitada ao conteúdo sanitizado apresentado aqui.</p>
+  </div>
+
+  <h3>Autorização &amp; Regras de Engajamento</h3>
+  <table>
+    <tr><th style="width:34%">Item</th><th>Detalhe</th></tr>
+    <tr><td>Autorização</td><td>Autorização formal de pentest, assinada</td></tr>
+    <tr><td>Modelo</td><td>Híbrido: white-box (inventário no código) + black-box (teste em runtime)</td></tr>
+    <tr><td>Roles usadas</td><td>customer / store_owner / admin (credenciais de pentest, rotacionadas)</td></tr>
+    <tr><td>Fora de escopo</td><td>Engenharia social, ataques a terceiros, DoS volumétrico, persistência</td></tr>
+    <tr><td>Segurança de dados</td><td>Sem dados reais; indisponibilidade temporária e reset autorizados; artefatos limpos</td></tr>
+  </table>
+
+  <div class="footnote">NOTA DO PORTFÓLIO: produzir entregáveis sanitizados é em si uma habilidade de
+  segurança — esta edição demonstra como compartilhar conhecimento ofensivo sem expor um cliente.</div>
+</div>
+
+<!-- ============ PAGE 3 : TABLE OF CONTENTS ============ -->
+<div class="page page-content">
+  <h2><span class="num">03</span> / SUMÁRIO</h2>
+  <div class="sectionbar"></div>
+
+  <ul class="toc">
+    <li><span class="no">04</span> — <a href="#sec-exec">Resumo Executivo</a></li>
+    <li><span class="no">05</span> — <a href="#sec-arch">Arquitetura da Aplicação</a></li>
+    <li><span class="no">06</span> — <a href="#sec-meth">Metodologia</a></li>
+    <li><span class="no">07</span> — <a href="#sec-tools">Ferramentas</a></li>
+    <li><span class="no">08</span> — <a href="#sec-surface">Superfície de Ataque</a></li>
+    <li><span class="no">09–16</span> — <a href="#sec-f1">Registro de Achados (8 cards em destaque)</a></li>
+    <li><span class="no">17</span> — <a href="#sec-pass">Controles de Segurança Validados</a></li>
+    <li><span class="no">18</span> — <a href="#sec-owasp">Matriz OWASP Top 10 (2021)</a></li>
+    <li><span class="no">19</span> — <a href="#sec-mitre">Mapeamento MITRE ATT&amp;CK</a></li>
+    <li><span class="no">20</span> — <a href="#sec-hard">Roadmap de Hardening</a></li>
+    <li><span class="no">21</span> — <a href="#sec-lessons">Lições Aprendidas</a></li>
+    <li><span class="no">22</span> — <a href="#sec-tech">Tecnologias Demonstradas</a></li>
+    <li><span class="no">23</span> — <a href="#sec-skills">Radar de Skills</a></li>
+    <li><span class="no">24</span> — <a href="#sec-about">Sobre o Projeto</a></li>
+    <li><span class="no">25</span> — <a href="#sec-concl">Conclusão</a></li>
+  </ul>
+
+  <h3>Registro completo de achados</h3>
+  <p class="small gray">Os 22 achados (incluindo LOW / INFO e controles positivos) estão listados
+  em <code>findings/severity-summary.md</code> no repositório. As páginas 09–16 trazem os oito
+  cards de maior prioridade.</p>
+</div>
+
+<!-- ============ PAGE 4 : EXECUTIVE SUMMARY ============ -->
+<div class="page page-content" id="sec-exec">
+  <h2><span class="num">04</span> / RESUMO EXECUTIVO</h2>
+  <div class="sectionbar"></div>
+
+  <p class="big">Um assessment de segurança autorizado de uma <b class="white">API REST de SaaS de delivery de comida</b>
+  (Go / Gin) encontrou <b class="white">nenhuma vulnerabilidade Crítica</b> e uma postura de segurança
+  geralmente forte. Dois achados <span class="sev sev-high">HIGH</span> foram identificados — ambos são
+  <b class="white">regras de negócio ausentes</b>, não bugs de framework: uma lacuna de role-gate que
+  permite um customer virar lojista, e uma constraint de unicidade ausente que permite registro em massa
+  com um único identificador fiscal. Nenhum IDOR explorável, escalada de privilégio ou injeção foi encontrado.</p>
+
+  <div class="grid4" style="margin-bottom:4mm">
+    <div class="kpi"><div class="v">130</div><div class="l">Rotas cobertas</div></div>
+    <div class="kpi"><div class="v">22</div><div class="l">Achados</div></div>
+    <div class="kpi"><div class="v">2</div><div class="l">HIGH (CVSS 8.8 / 8.1)</div></div>
+    <div class="kpi"><div class="v">3</div><div class="l">Roles testadas</div></div>
+  </div>
+
+  <div class="grid3" style="margin-bottom:4mm">
+    <div class="kpi"><div class="v">4</div><div class="l">Medium</div></div>
+    <div class="kpi"><div class="v">7</div><div class="l">Low</div></div>
+    <div class="kpi"><div class="v">9</div><div class="l">Info</div></div>
+  </div>
+
+  <img src="assets/severity-chart.svg" style="height:50mm; margin-bottom:3mm">
+
+  <div class="panel">
+    <h3>Top 3 prioridades</h3>
+    <ul>
+      <li><b class="white">F-01 (HIGH, CVSS 8.8):</b> qualquer customer autenticado pode criar uma
+      loja e escalar para <code>store_owner</code>. Aplicar um role gate no <code>POST /store</code>.</li>
+      <li><b class="white">F-02 (HIGH, CVSS 8.1):</b> o mesmo CNPJ pode ser registrado um número ilimitado
+      de vezes em paralelo. Adicionar <code>UNIQUE(cnpj)</code> + conflito 409.</li>
+      <li><b class="white">F-04 (MEDIUM, CVSS 6.5):</b> null-byte e payloads de 5 KB causam <code>500</code>
+      bruto. Adicionar limite de tamanho (413) e decode robusto de entrada.</li>
+    </ul>
+  </div>
+
+  <div class="passbar"><span class="icon-check">✔</span> <b class="white">Pontos fortes dos controles:</b>
+  Assinatura/claims do JWT validadas (alg:none rejeitado) · RBAC &amp; propriedade estritos (sem IDOR) ·
+  uploads com validação por decode (SVG/HTML/polyglots todos bloqueados) · CORS restritivo · TLS 1.3 +
+  HSTS + CSP <code>default-src 'none'</code> · auth com rate limit de 10/min.</div>
+</div>
+
+<!-- ============ PAGE 5 : ARCHITECTURE ============ -->
+<div class="page page-content" id="sec-arch">
+  <h2><span class="num">05</span> / ARQUITETURA DA APLICAÇÃO</h2>
+  <div class="sectionbar"></div>
+
+  <p>O alvo é um SaaS de delivery de comida multi-tenant: customers pedem de lojas de lojistas;
+  lojas gerenciam menus, pedidos e pagamentos; um painel admin cuida das operações da plataforma.
+  Uma API Go / Gin compartilhada atende os três front-ends além de uma camada de login OAuth.</p>
+
+  <img src="assets/architecture.svg" style="height:56mm; margin-bottom:3mm">
+
+  <h3>Inventário de rotas (autoritativo — do código-fonte)</h3>
+  <table>
+    <tr><th>Grupo</th><th>Rotas aprox.</th><th>Auth</th><th>Exemplos</th></tr>
+    <tr><td>Infra</td><td>4</td><td>nenhuma</td><td><code>/health</code></td></tr>
+    <tr><td>Auth</td><td>7</td><td>public</td><td><code>/login/{role}</code>, <code>/auth/refresh</code></td></tr>
+    <tr><td>OAuth</td><td>0–10</td><td>pública</td><td>Google / Apple (env-gated)</td></tr>
+    <tr><td>Catálogo</td><td>~21</td><td>JWT opcional</td><td><code>/cuisines</code>, <code>/stores</code>, menus, items</td></tr>
+    <tr><td>Protegido JWT</td><td>~70</td><td>obrigatória</td><td>pedidos, favoritos, endereços, cupons</td></tr>
+    <tr><td>Admin</td><td>13</td><td>role admin</td><td><code>/admin/dashboard</code>, usuários, lojas</td></tr>
+    <tr><td>Webhooks</td><td>2</td><td>assinatura</td><td><code>/webhooks/billing</code>, <code>/webhooks/{id}</code></td></tr>
+  </table>
+
+  <div class="footnote">130 rotas fixas + 5 por provedor OAuth → máx. 140. A API é exposta
+  diretamente (sem edge WAF), ao contrário dos front-ends protegidos por CDN — ver F-14.</div>
+</div>
+
+<!-- ============ PAGE 6 : METHODOLOGY ============ -->
+<div class="page page-content" id="sec-meth">
+  <h2><span class="num">06</span> / METODOLOGIA</h2>
+  <div class="sectionbar"></div>
+
+  <img src="assets/timeline.svg" style="height:34mm; margin-bottom:3mm">
+
+  <h3>Fases</h3>
+  <table>
+    <tr><th style="width:18%">Fase</th><th>Trabalho realizado</th><th style="width:24%">Resultado</th></tr>
+    <tr><td>1. Inventário</td><td>Mapa de rotas do código (<code>RegisterRoutes</code>); escopo &amp; credenciais</td><td>130 rotas classificadas</td></tr>
+    <tr><td>2. Recon</td><td>Handshake TLS, headers, fingerprint, matriz de métodos</td><td>TLS 1.3, HSTS, CSP 'none'</td></tr>
+    <tr><td>3. Auth</td><td>Fluxos de login, adulteração de JWT, vínculo de refresh, loop de rate-limit</td><td>10/min; alg:none rejeitado</td></tr>
+    <tr><td>4. A01 Acesso</td><td>Bateria IDOR cross-role: users, stores, pedidos, endereços</td><td>Tudo bloqueado 403</td></tr>
+    <tr><td>5. Negócio</td><td>Idempotência, cupons, auto-pedido, auto-registro de loja</td><td>F-01, F-02, F-06 encontrados</td></tr>
+    <tr><td>6. Upload</td><td>Bateria de MIME sniff: SVG, HTML, polyglot, null-byte, traversal</td><td>Todos 400 — validação por decode</td></tr>
+    <tr><td>7. Race</td><td>Bursts paralelos: favorito, pedido, loja/CNPJ</td><td>Favoritos/pedidos idempotentes; race de CNPJ quebrada</td></tr>
+    <tr><td>8. Automação</td><td>ffuf (38 paths) + Nuclei (misconfig/exposures/cves)</td><td>Apenas headers ausentes (info)</td></tr>
+    <tr><td>9. Limpeza</td><td>Artefatos revertidos, aviso de rotação de credenciais</td><td>Ambiente limpo</td></tr>
+  </table>
+
+  <h3>Cobertura OWASP 2021</h3>
+  <p class="small gray">As 10 categorias exercitadas com um plano de teste dedicado para cada — A01 Broken
+  Access Control, A02 Cripto, A03 Injeção, A04 Insecure Design, A05 Misconfiguração, A06
+  Componentes Vulneráveis, A07 Auth, A08 Integridade (webhooks), A09 Logging, A10 SSRF.</p>
+</div>
+
+<!-- ============ PAGE 7 : TOOLING ============ -->
+<div class="page page-content" id="sec-tools">
+  <h2><span class="num">07</span> / FERRAMENTAS</h2>
+  <div class="sectionbar"></div>
+
+  <p>As ferramentas rodaram de um ambiente Linux (Gentoo) sob as regras de engajamento. A seleção foi
+  deliberada: <b class="white">nenhuma ferramenta foi usada por si só</b> — cada uma respondeu a uma pergunta.</p>
+
+  <table>
+    <tr><th>Ferramenta</th><th>Categoria</th><th>Pergunta que respondeu</th></tr>
+    <tr><td><b>curl</b></td><td>Cliente HTTP</td><td>Fluxos de auth, bateria IDOR, loop de rate-limit, diferenciais de webhook</td></tr>
+    <tr><td><b>OpenSSL</b></td><td>Cripto/TLS</td><td>Versão &amp; cipher TLS: TLSv1.3, TLS_AES_128_GCM_SHA256</td></tr>
+    <tr><td><b>ffuf</b></td><td>Fuzzing</td><td>Caminhos ocultos (<code>/v1</code>, <code>/.env</code>, <code>/.git</code>, backups) → apenas <code>/health</code></td></tr>
+    <tr><td><b>Nuclei</b></td><td>Escaneamento</td><td>Templates de misconfig/exposição/CVE → apenas headers ausentes (info)</td></tr>
+    <tr><td><b>Decodificador JWT</b></td><td>Cripto</td><td>Estrutura de claims; verificado alg:none &amp; tokens adulterados rejeitados</td></tr>
+    <tr><td><b>Shell (bash)</b></td><td>Automação</td><td>Bursts de race paralelos (10×/20×), parsing de status code, timing</td></tr>
+  </table>
+
+  <h3>Deliberadamente NÃO usado</h3>
+  <table>
+    <tr><th>Ferramenta</th><th>Motivo</th></tr>
+    <tr><td><code>sqlmap</code></td><td>Não disponível; a amostragem manual de SQLi cobriu os vetores de maior valor</td></tr>
+    <tr><td>DoS volumétrico</td><td>Fora de escopo por contrato; apenas stress leve controlado permitido</td></tr>
+    <tr><td>Persistência / implantes</td><td>Fora de escopo; regras do ambiente proíbem mudanças duradouras</td></tr>
+  </table>
+
+  <div class="passbar"><span class="icon-check">✔</span> <b class="white">Recomendação de CI:</b>
+  versione a coleção <code>rest/*.http</code> / Postman e conecte Nuclei + ffuf ao CI para que cada
+  mudança em <code>routes.go</code> seja re-validada automaticamente.</div>
+</div>
+
+<!-- ============ PAGE 8 : ATTACK SURFACE ============ -->
+<div class="page page-content" id="sec-surface">
+  <h2><span class="num">08</span> / SUPERFÍCIE DE ATAQUE</h2>
+  <div class="sectionbar"></div>
+
+  <p>A API é o ponto único de entrada para três front-ends. A superfície foi mapeada exaustivamente
+  pelo inventário do código e depois validada em runtime.</p>
+
+  <img src="assets/attack-surface.svg" style="height:46mm; margin-bottom:3mm">
+
+  <h3>Resumo de exposição</h3>
+  <table>
+    <tr><th>Classe de endpoint</th><th>Risco</th><th>Comentário</th></tr>
+    <tr><td><code>/health</code></td><td>Info</td><td>Apenas telemetria de uptime/latência; sem vazamento de versão</td></tr>
+    <tr><td>Auth (login/refresh)</td><td>Low</td><td>Rate limit de 10/min; sem lockout observado, mas também sem bypass</td></tr>
+    <tr><td>Catálogo (público)</td><td>Low</td><td>Somente leitura; JWT opcional e ignorado quando inválido (F-10)</td></tr>
+    <tr><td>Protegido JWT</td><td>Medium</td><td>RBAC forte; o risco são as duas lacunas de regra de negócio (F-01/F-02)</td></tr>
+    <tr><td>Admin</td><td>Low</td><td>Gate estrito de role admin; UUID inválido → 500 (F-05)</td></tr>
+    <tr><td>Webhooks</td><td>Low</td><td>Billing valida a assinatura primeiro; webhook de loja vaza existência (F-07)</td></tr>
+    <tr><td>Uploads</td><td>Low</td><td>Validação MIME por decode bloqueia todos os payloads testados</td></tr>
+  </table>
+
+  <div class="footnote">A automação confirmou a superfície: ffuf não achou rotas ocultas; Nuclei
+  achou zero HIGH/CRITICAL. As rotas documentadas são a superfície de ataque completa deste ciclo.</div>
+</div>
+
+<!-- ============ PAGE 9 : FINDING F-01 ============ -->
+<div class="page page-content" id="sec-f1">
+  <h2><span class="num">09</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-01 · Controle de Acesso Quebrado</div><div class="fn">F-01</div></div>
+    <span class="sev sev-high">HIGH</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">8.8 (AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-269 · CWE-284</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A01 — Broken Access Control</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1078 / T1548.002</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Qualquer <code>customer</code> autenticado pode chamar <code>POST /store</code> e receber um
+    <code>200</code> com um <code>store_id</code> válido — ganhando imediatamente capacidades de
+    <code>store_owner</code> (CRUD de menu, gestão de pedidos, acesso a webhooks). O endpoint não tem
+    role gate; só verifica autenticação.</p>
+    <h3>Impacto</h3>
+    <p>Escalada vertical de privilégio: controle total de lojista de uma loja, seu menu, pedidos e
+    configuração de pagamento sem ser um lojista aprovado. Combinado com F-02, é possível a criação em
+    massa de lojas de propriedade do atacante.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>POST /store
+Authorization: Bearer &lt;customer_jwt&gt;
+{"cnpj":"19.131.243/0001-97","name":"PORTFOLIO-STORE","category":"PIZZA"}
+→ 200 {"store_id":"xxxxxxxx-xxxx-…","cnpj":"…","role_now":"store_owner"}</pre>
+    <h3>Remediação</h3>
+    <p>Aplicar <code>role == store_owner</code> antes da criação de loja (403), ou rotear a criação
+    por um workflow de aprovação. Adicionar teste de regressão afirmando customer → 403.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 10 : FINDING F-02 ============ -->
+<div class="page page-content" id="sec-f2">
+  <h2><span class="num">10</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-02 · Lógica de Negócio — Duplicação de CNPJ</div><div class="fn">F-02</div></div>
+    <span class="sev sev-high">HIGH</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">8.1 (AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:H)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-770 · CWE-307</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A04 — Insecure Design</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1499 / T1110</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>O mesmo CNPJ pode ser registrado em um número ilimitado de lojas. Tentativas <b class="white">sequenciais</b>
+    retornam <code>200</code> cada; bursts <b class="white">10× paralelos</b> com um CNPJ também retornam todos
+    <code>200</code> — provando que não há verificação de unicidade nem lock, não apenas uma janela de race.</p>
+    <h3>Impacto</h3>
+    <p>Criação em massa de lojas com um único identificador fiscal: habilita fraude, onboarding de
+    lojistas fictícios, abuso de avaliações/cupons e manipulação de estoque/billing. F-01 agrava.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre># 10× parallel
+for i in $(seq 1 10); do curl -sk -X POST https://api.example.com/store \
+  -H "Authorization: Bearer &lt;store_jwt&gt;" -d '{"cnpj":"19.131.243/0001-97","name":"S'"$i"'","category":"PIZZA"}' & done; wait
+→ 10 × HTTP 200, 10 distinct store_ids</pre>
+    <h3>Remediação</h3>
+    <p>Adicionar constraint <code>UNIQUE(cnpj)</code>; retornar <code>409 cnpj already exists</code>; adicionar
+    um teste de regressão de race (burst paralelo).</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 11 : FINDING F-03 ============ -->
+<div class="page page-content" id="sec-f3">
+  <h2><span class="num">11</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-03 · XSS Armazenado (candidato)</div><div class="fn">F-03</div></div>
+    <span class="sev sev-medium">MEDIUM</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">5.4 (AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:N)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-79</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A03 — Injection</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1059.007</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p><code>PATCH /user/profile</code> armazena <code>"name":"&lt;script&gt;alert(1)&lt;/script&gt;"</code>
+    literalmente (<code>200</code>). A API o escapa em JSON, então ele <b class="white">não</b> executa
+    nas respostas da API. O risco existe apenas se algum front-end renderizar este campo como HTML.</p>
+    <h3>Impacto</h3>
+    <p>XSS armazenado <b>se</b> um consumidor renderizar o campo sem sanitização: roubo de sessão/cookies,
+    overlays de phishing ou comprometimento do dashboard da loja. Avaliado como MEDIUM (condicional).</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>PATCH /user/profile {"name":"&lt;script&gt;alert(document.cookie)&lt;/script&gt;"} → 200
+GET /user/xxxxxxxx-… → {"name":"\u003cscript\u003ealert(document.cookie)\u003c/script\u003e"}
+SSTI probes {{7*7}}, ${7*7}, &lt;%=7*7%&gt; → stored literally (NO template injection) ✔</pre>
+    <h3>Remediação</h3>
+    <p>Sanitizar na escrita (remover <code>&lt;&gt;</code>) ou aplicar output-encoding em todo consumidor.
+    Adicionar CSP que bloqueie script inline como defense-in-depth.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 12 : FINDING F-04 ============ -->
+<div class="page page-content" id="sec-f4">
+  <h2><span class="num">12</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-04 · 500 Descontrolado em Null-Byte / Payload Grande</div><div class="fn">F-04</div></div>
+    <span class="sev sev-medium">MEDIUM</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">6.5 (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-248 · CWE-400</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A05 — Security Misconfiguration</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1499.001</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p><code>PATCH /user/profile</code> com <code>"name":"teste\u0000"</code> ou um valor de 5000 chars
+    retorna <code>500</code> bruto em vez de erro de validação. Não há limite de tamanho de payload
+    nem tratamento gracioso de null bytes.</p>
+    <h3>Impacto</h3>
+    <p>Próximo a confiabilidade/DoS: requisições malformadas repetidas elevam a taxa de erro e poluem
+    o monitoramento; <code>500</code>s descontrolados podem mascarar incidentes reais e são um sinal
+    de saúde do código.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>PATCH /user/profile {"name":"teste\u0000"}        → 500 internal error
+PATCH /user/profile {"name":"A×5000"}             → 500 internal error  (no 413)
+PATCH /user/profile {"name":12345} | [] | {}      → 400 invalid request body ✔ (typing OK)</pre>
+    <h3>Remediação</h3>
+    <p>Rejeitar null bytes (<code>400</code>), aplicar limite de corpo de 1 MB retornando <code>413</code>
+    e adicionar um handler global de erros que retorne erros controlados em vez de <code>500</code> bruto.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 13 : FINDING F-05 ============ -->
+<div class="page page-content" id="sec-f5">
+  <h2><span class="num">13</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-05 · 500 Não Tratado em Menu / Categoria / Lookup Admin</div><div class="fn">F-05</div></div>
+    <span class="sev sev-medium">MEDIUM</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">5.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-248 · CWE-214</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A05 — Security Misconfiguration</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1499.001</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>UUIDs inválidos em <code>menu/category</code> e <code>admin/user/{bad}</code> retornam
+    <code>500</code> em vez de <code>400</code>/<code>404</code>. Os caminhos fazem parse de um UUID
+    malformado e caem em um erro descontrolado.</p>
+    <h3>Impacto</h3>
+    <p>Próximo a divulgação de informação: 500s vazam o comportamento interno do handler, geram ruído
+    de alertas e indicam validação ausente na fronteira do handler.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>GET /menu/category/not-a-uuid    → 500 internal error
+GET /admin/user/not-a-uuid       → 500 internal error  (admin role)
+GET /store/not-a-uuid/order      → 403 (role gate runs BEFORE parse) ✔</pre>
+    <h3>Remediação</h3>
+    <p>Validar a sintaxe do UUID antes da lógica do handler (<code>400</code>); retornar <code>404</code> quando
+    o recurso realmente não existir; adicionar um middleware global de recover.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 14 : FINDING F-06 ============ -->
+<div class="page page-content" id="sec-f6">
+  <h2><span class="num">14</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-06 · Rate Limit Ausente na Criação de Loja</div><div class="fn">F-06</div></div>
+    <span class="sev sev-medium">MEDIUM</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">5.3 (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-770</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A04 — Insecure Design</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1499 / T1110</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Os endpoints de auth têm rate limit de 10/min, mas <code>POST /store</code> não. 32 criações de loja
+    em menos de 60 segundos produziram zero respostas <code>429</code>.</p>
+    <h3>Impacto</h3>
+    <p>Onboarding em massa de lojas fictícias (agrava F-01/F-02), inchaço do banco e fraude em
+    chamados de suporte.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre># 32 creations &lt; 60s (2 init + 10 race + 20 stress)
+for i in $(seq 1 20); do curl -sk -o /dev/null -w '%{http_code}\n' -X POST \
+  https://api.example.com/store -H "Authorization: Bearer &lt;store_jwt&gt;" \
+  -d '{"cnpj":"10.000.000/0001-'"$i"'","name":"S'"$i"'","category":"PIZZA"}'; done
+→ 20 × HTTP 200  (zero 429)</pre>
+    <h3>Remediação</h3>
+    <p>Aplicar o mesmo limiter de 10/min à criação de loja, chaveado por usuário + IP, com uma folga
+    de burst para onboarding legítimo; alertar em picos.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 15 : FINDING F-07 ============ -->
+<div class="page page-content" id="sec-f7">
+  <h2><span class="num">15</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-07 · Enumeração de Existência de Loja via Webhook</div><div class="fn">F-07</div></div>
+    <span class="sev sev-low">LOW</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">3.7 (AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-204 · CWE-16</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A08 — Data Integrity</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1595 / T1589</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p><code>POST /webhooks/{id}</code> retorna <code>404 store payment config not found</code> quando
+    o id da loja é real mas sem config, versus <code>401 invalid webhook signature</code> no
+    webhook de billing. O lookup da config roda <b class="white">antes</b> da validação da assinatura.</p>
+    <h3>Impacto</h3>
+    <p>Oráculo de existência de loja sem autenticação; habilita engenharia social direcionada e recon
+    para abuso de F-01/F-02.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>POST /webhooks/xxxxxxxx-xxxx-…  (no signature) → 404 store payment config not found
+POST /webhooks/billing         (no signature) → 401 invalid webhook signature
+# differential = existence oracle</pre>
+    <h3>Remediação</h3>
+    <p>Validar a assinatura <b class="white">antes</b> do lookup no banco e retornar um <code>401</code>
+    genérico para todos os modos de falha.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 16 : FINDING F-10 ============ -->
+<div class="page page-content" id="sec-f10">
+  <h2><span class="num">16</span> / REGISTRO DE ACHADOS</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-10 · Catálogo Ignora JWT Inválido</div><div class="fn">F-10</div></div>
+    <span class="sev sev-low">LOW</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">CVSS v3.1</div><div class="val">2.6 (AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:N)</div></div>
+      <div class="metabox"><div class="k">CWE</div><div class="val">CWE-703 · CWE-345</div></div>
+    </div>
+    <div class="metarow">
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A07 — Identification and Authentication Failures</div></div>
+      <div class="metabox"><div class="k">MITRE ATT&amp;CK</div><div class="val">T1078</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Endpoints públicos de catálogo aceitam um JWT <b class="white">inválido/expirado/lixo</b> sem erro
+    e servem os dados públicos — o token é silenciosamente ignorado. O comportamento é correto para os
+    dados (públicos), mas a ignorância silenciosa mascara problemas de token dos clientes.</p>
+    <h3>Impacto</h3>
+    <p>Low: sem vazamento de dados (catálogo é público). É uma falha de observabilidade e consistência —
+    os clientes não conseguem perceber que o token está quebrado.</p>
+    <h3>Evidência (sanitizada)</h3>
+    <pre>GET /cuisines  Authorization: Bearer garbage.token.here → 200 (public data served)
+GET /cuisines  Authorization: Bearer &lt;expired_jwt&gt;      → 200 (same)
+GET /cuisines  no header                                 → 200 (same)</pre>
+    <h3>Remediação</h3>
+    <p>Decidir a política: retornar <code>401</code> para token <b class="white">presente-mas-inválido</b>
+    nas rotas de catálogo (ou documentar a ignorância explicitamente). No mínimo, logar a anomalia.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 17 : VALIDATED CONTROLS ============ -->
+<div class="page page-content" id="sec-pass">
+  <h2><span class="num">17</span> / CONTROLES DE SEGURANÇA VALIDADOS</h2>
+  <div class="sectionbar"></div>
+  <p>Um assessment tem duas metades: encontrar o que está quebrado e <b class="white">provar o que funciona</b>.
+  Cada controle abaixo foi ativamente atacado e se sustentou.</p>
+
+  <div class="passbar"><b>Integridade do JWT</b> — <span class="icon-check">✔</span> <code>alg:none</code>,
+  claims adulteradas e tokens expirados todos rejeitados com <code>401</code>. HS256 aplicado.</div>
+  <div class="passbar"><b>RBAC &amp; propriedade</b> — <span class="icon-check">✔</span> 20+ tentativas
+  cross-role e cross-objeto em usuários, lojas, pedidos, endereços, cupons → todas <code>403</code>. Sem IDOR.</div>
+  <div class="passbar"><b>Uploads</b> — <span class="icon-check">✔</span> SVG, HTML, PNG falso,
+  polyglot, extensão dupla, null-byte e arquivos de traversal todos <code>400</code> — o servidor
+  <b>decodifica</b> a imagem, não apenas o header.</div>
+  <div class="passbar"><b>CORS</b> — <span class="icon-check">✔</span> sem reflexão de origin;
+  <code>Origin</code> não permitida → <code>403</code>.</div>
+  <div class="passbar"><b>Transporte</b> — <span class="icon-check">✔</span> somente TLS 1.3,
+  <code>TLS_AES_128_GCM_SHA256</code>, HSTS + CSP <code>default-src 'none'</code> + XFO DENY.</div>
+  <div class="passbar"><b>Rate limiting (auth)</b> — <span class="icon-check">✔</span> 10/min aplicado;
+  spoofing de XFF (12 IPs rotativos) <b>não</b> burlou (F-21 positivo).</div>
+  <div class="passbar"><b>Sem roteamento por Host-header</b> — <span class="icon-check">✔</span>
+  <code>Host: evil.com</code> → <code>404</code>, vhost estrito (F-21).</div>
+  <div class="passbar"><b>Idempotência (favoritos/pedidos)</b> — <span class="icon-check">✔</span> 10×
+  paralelos → um único favorito, um único id de pedido.</div>
+  <div class="passbar"><b>Cross-check de automação</b> — <span class="icon-check">✔</span> ffuf + Nuclei
+  não encontraram exposição adicional (F-22 positivo).</div>
+
+  <div class="footnote">Esses resultados são o que separa um run de scanner de um assessment liderado por
+  engenharia: cada PASS é uma hipótese testada, não uma suposição.</div>
+</div>
+
+<!-- ============ PAGE 18 : OWASP MATRIX ============ -->
+<div class="page page-content" id="sec-owasp">
+  <h2><span class="num">18</span> / MATRIZ OWASP TOP 10 (2021)</h2>
+  <div class="sectionbar"></div>
+  <img src="assets/owasp-coverage.svg" style="height:44mm; margin-bottom:3mm">
+  <table>
+    <tr><th>A#</th><th>Categoria</th><th>Resultado do assessment</th><th>Relacionado</th></tr>
+    <tr><td>A01</td><td>Broken Access Control</td><td><span class="sev sev-high">HIGH</span> role gate na criação de loja; no resto sólido</td><td>F-01</td></tr>
+    <tr><td>A02</td><td>Falhas Criptográficas</td><td><span class="sev sev-pass">PASS</span> TLS 1.3, HS256 aplicado, refresh vinculado ao device</td><td>—</td></tr>
+    <tr><td>A03</td><td>Injeção</td><td><span class="sev sev-medium">MED</span> candidato a stored-XSS; sem SQLi/SSTI</td><td>F-03</td></tr>
+    <tr><td>A04</td><td>Insecure Design</td><td><span class="sev sev-high">HIGH</span> unicidade de CNPJ, rate limit ausente</td><td>F-02, F-06</td></tr>
+    <tr><td>A05</td><td>Security Misconfiguration</td><td><span class="sev sev-medium">MED</span> 500s descontrolados; 3 headers ausentes</td><td>F-04, F-05, F-13</td></tr>
+    <tr><td>A06</td><td>Componentes Vulneráveis</td><td><span class="sev sev-pass">PASS</span> sem vazamento de versão; SBOM pendente</td><td>F-22</td></tr>
+    <tr><td>A07</td><td>Falhas de ID &amp; Auth</td><td><span class="sev sev-low">LOW</span> catálogo ignora JWT inválido</td><td>F-10</td></tr>
+    <tr><td>A08</td><td>Integridade de Dados</td><td><span class="sev sev-low">LOW</span> risco fail-open de webhook, oráculo de existência</td><td>F-07, F-08</td></tr>
+    <tr><td>A09</td><td>Logging &amp; Monitoramento</td><td><span class="sev sev-low">LOW</span> <code>x-request-id</code> presente; lacunas no log de auth</td><td>F-11</td></tr>
+    <tr><td>A10</td><td>SSRF</td><td><span class="sev sev-pass">PASS</span> sem superfície de fetch de URL externa; anotado para staging</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- ============ PAGE 19 : MITRE ============ -->
+<div class="page page-content" id="sec-mitre">
+  <h2><span class="num">19</span> / MAPEAMENTO MITRE ATT&amp;CK</h2>
+  <div class="sectionbar"></div>
+  <p>Achados mapeados para o ciclo de vida do adversário para mostrar prioridades de detecção/monitoramento.</p>
+  <table>
+    <tr><th>Tática</th><th>Técnica</th><th>Achado / controle</th></tr>
+    <tr><td>Recon</td><td>T1595 / T1589</td><td>F-07 oráculo de existência via webhook</td></tr>
+    <tr><td>Acesso Inicial</td><td>T1078 (contas válidas)</td><td>F-01 caminho de escalada de loja</td></tr>
+    <tr><td>Escalada de Privilégio</td><td>T1548.002</td><td>F-01 customer → store_owner</td></tr>
+    <tr><td>Impact / DoS</td><td>T1499 / T1499.001</td><td>F-02, F-04, F-05, F-06</td></tr>
+    <tr><td>Acesso a Credenciais</td><td>T1110 (brute force)</td><td>F-06, F-21 (mitigado: 10/min)</td></tr>
+    <tr><td>Execução</td><td>T1059.007 (JS)</td><td>F-03 candidato a stored-XSS</td></tr>
+    <tr><td>Coleta</td><td>T1557</td><td>Nenhum encontrado — sem BOLA/IDOR</td></tr>
+  </table>
+
+  <h3>Recomendações de detecção</h3>
+  <ul>
+    <li>Alertar em &gt;10 <code>POST /store</code> por usuário por minuto (F-06/F-02).</li>
+    <li>Correlacionar bursts de 404 em <code>POST /webhooks/{id}</code> → assinatura de recon (F-07).</li>
+    <li>Monitorar <code>500</code>s repetidos de payloads malformados (F-04/F-05) como ruído de scan.</li>
+    <li>Alertar em uma única conta emitindo JWTs de <code>customer</code> e <code>store_owner</code> (F-01).</li>
+  </ul>
+</div>
+
+<!-- ============ PAGE 20 : HARDENING ============ -->
+<div class="page page-content" id="sec-hard">
+  <h2><span class="num">20</span> / ROADMAP DE HARDENING</h2>
+  <div class="sectionbar"></div>
+  <img src="assets/risk-matrix.svg" style="height:40mm; margin-bottom:3mm">
+
+  <h3>Imediato — 0–7 dias</h3>
+  <table>
+    <tr><th>#</th><th>Ação</th><th>Corrige</th></tr>
+    <tr><td>1</td><td>Role gate no <code>POST /store</code> (403) + teste de regressão</td><td>F-01</td></tr>
+    <tr><td>2</td><td><code>UNIQUE(cnpj)</code> + <code>409</code> + teste de race</td><td>F-02</td></tr>
+    <tr><td>3</td><td>Verificar secret de webhook definido em prod; 503 fail-closed quando vazio</td><td>F-08</td></tr>
+    <tr><td>4</td><td>Sanitizar <code>name</code> (rejeitar <code>&lt;&gt;</code>, null byte; 2–100 chars)</td><td>F-03/F-04/F-18/F-19</td></tr>
+    <tr><td>5</td><td>Limite de corpo de 1 MB → <code>413</code>; middleware global de recover</td><td>F-04/F-05</td></tr>
+    <tr><td>6</td><td>Rate-limit no <code>POST /store</code> (10/min) + rotacionar credenciais de pentest</td><td>F-06</td></tr>
+  </table>
+
+  <h3>30 dias — hardening</h3>
+  <ul>
+    <li>Validar token de webhook antes do lookup no banco; 401 genérico (F-07).</li>
+    <li>Fallback de rate-limit em memória quando Redis está fora (F-11).</li>
+    <li>Padronizar nomenclatura da role <code>store_owner</code> (F-12).</li>
+    <li>Add <code>permissions-policy</code>, COOP, CORP + CI header check (F-13).</li>
+    <li>Job de CI com Nuclei/ffuf cobrindo as 130 rotas (F-22).</li>
+  </ul>
+
+  <h3>60–90 dias — arquitetura &amp; lógica de negócio</h3>
+  <ul>
+    <li>Edge WAF/CDN para a API; limite por IP na borda (F-14).</li>
+    <li>Tokens baseados em cookie (httpOnly/Secure/SameSite) com rotação de refresh.</li>
+    <li>Teste de lógica financeira: race de cupom, máquina de estados do pedido, fuzz de variant/addon (F-09/F-16).</li>
+    <li>Revisão de SSRF em fetches de URL externa; SBOM + <code>security.txt</code> + govulncheck no CI (F-22).</li>
+  </ul>
+</div>
+
+<!-- ============ PAGE 21 : LESSONS ============ -->
+<div class="page page-content" id="sec-lessons">
+  <h2><span class="num">21</span> / LIÇÕES APRENDIDAS</h2>
+  <div class="sectionbar"></div>
+
+  <div class="panel">
+    <h3>1. Controles positivos valem tanto quanto achados</h3>
+    <p>Os resultados negativos — cada IDOR, polyglot de upload e tentativa de CORS que foi bloqueada —
+    são evidência de que os controles <b class="white">funcionam</b>. Um relatório que prova que as defesas
+    funcionam é mais crível do que um que só lista bugs.</p>
+  </div>
+  <div class="panel">
+    <h3>2. Teste o modelo de negócio, não só o framework</h3>
+    <p>Os dois HIGHs (F-01, F-02) eram <b class="white">regras de negócio ausentes</b> — sem role gate, sem
+    constraint de unicidade. Nenhum scanner encontra isso. Essa é a diferença entre rodar ferramentas e
+    conduzir um assessment.</p>
+  </div>
+  <div class="panel">
+    <h3>3. Race conditions precisam de teste paralelo, não sequencial</h3>
+    <p>A duplicação de CNPJ só se tornou comprovável com bursts paralelos de 10×/20×. Um re-teste sequencial
+    teria mostrado "um por chamada" e perdido completamente o lock ausente.</p>
+  </div>
+  <div class="panel">
+    <h3>4. Severidade é sobre contexto de negócio</h3>
+    <p>O mesmo rate limit ausente é LOW num caminho de leitura e MEDIUM num caminho de escrita que habilita
+    fraude em massa. Contexto — não tabelas de consulta — determina a severidade.</p>
+  </div>
+  <div class="panel">
+    <h3>5. Entrega é um produto</h3>
+    <p>Um plano de remediação de 7/30/60/90 dias, um roadmap com donos e uma seção clara de
+    autorização/escopo tornam um pentest <b class="white">acionável</b>. O relatório não é o entregável —
+    a <b class="white">decisão que ele habilita</b> é.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 22 : TECHNOLOGIES ============ -->
+<div class="page page-content" id="sec-tech">
+  <h2><span class="num">22</span> / TECNOLOGIAS DEMONSTRADAS</h2>
+  <div class="sectionbar"></div>
+
+  <div class="grid3" style="margin-bottom:4mm">
+    <div class="kpi"><div class="v" style="font-size:14pt">GO / GIN</div><div class="l">Stack alvo analisada</div></div>
+    <div class="kpi"><div class="v" style="font-size:14pt">JWT / HS256</div><div class="l">Teste de auth &amp; token</div></div>
+    <div class="kpi"><div class="v" style="font-size:14pt">TLS 1.3</div><div class="l">Validação de transporte</div></div>
+  </div>
+
+  <h3>Disciplinas de assessment exercitadas</h3>
+  <ul>
+    <li><b class="white">Web App Security:</b> bateria OWASP Top 10, amostragem de injeção, XSS, CORS, CSP, headers</li>
+    <li><b class="white">API Security:</b> inventário de 130 rotas, RBAC/propriedade (BOLA/IDOR), mass-assignment, matriz de métodos</li>
+    <li><b class="white">Lógica de Negócio:</b> idempotência, race conditions, máquinas de estado, auto-pedido</li>
+    <li><b class="white">Criptografia:</b> adulteração de algoritmo JWT, revisão de cipher TLS, vínculo de refresh token</li>
+    <li><b class="white">Linux &amp; Automação:</b> curl, OpenSSL, ffuf, Nuclei, shell scripting paralelo</li>
+    <li><b class="white">Documentação &amp; Relatório:</b> sanitização, mapeamento CVSS/CWE/OWASP/ATT&amp;CK, roadmap</li>
+  </ul>
+
+  <h3>Resultado a nível de framework</h3>
+  <p>O framework (Gin) se sustentou: os achados significativos estavam na <b class="white">camada de negócio</b>
+  (política de autorização, constraints de integridade de dados), não no framework web. Esse é o perfil de um
+  codebase maduro e de um assessment direcionado, não de chumbo grosso.</p>
+</div>
+
+<!-- ============ PAGE 23 : SKILLS RADAR ============ -->
+<div class="page page-content" id="sec-skills">
+  <h2><span class="num">23</span> / RADAR DE SKILLS</h2>
+  <div class="sectionbar"></div>
+  <img src="assets/skills-radar.svg" style="width:100%; margin-bottom:4mm">
+  <p class="center gray small">Auto-avaliado em um engajamento live — fundamentado em cobertura de 130/130
+  rotas, 150+ requisições construídas, 10/10 categorias OWASP e 22 achados classificados.</p>
+</div>
+
+<!-- ============ PAGE 24 : ABOUT ============ -->
+<div class="page page-content" id="sec-about">
+  <h2><span class="num">24</span> / SOBRE ESTE PROJETO</h2>
+  <div class="sectionbar"></div>
+
+  <div class="panel">
+    <h3>Por que este portfólio existe</h3>
+    <p>Este repositório é uma <b class="white">demonstração de engenharia de segurança ofensiva</b>:
+    como um engajamento autorizado real é planejado, executado, documentado, sanitizado e transformado
+    em um roadmap acionável — sem nunca expor o cliente.</p>
+  </div>
+
+  <div class="panel">
+    <h3>O que está incluído</h3>
+    <ul>
+      <li><b class="white">findings/</b> — 22 cards individuais de achados (F-01…F-22 + registro)</li>
+      <li><b class="white">evidence/</b> — trechos canônicos sanitizados de requisição/resposta</li>
+      <li><b class="white">assets/</b> — 9 diagramas customizados (arquitetura, superfície de ataque, fluxos…)</li>
+      <li><b class="white">methodology.md / timeline.md / tools.md</b> — o "como"</li>
+      <li><b class="white">hardening-roadmap.md</b> — 24 ações priorizadas com donos</li>
+      <li><b class="white">portfolio-notes.md</b> — revisão sênior do relatório original + lições</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>O que é deliberadamente NÃO incluído</h3>
+    <ul>
+      <li>Nome do cliente, hostnames reais, IPs, CNPJs, e-mails, tokens, segredos</li>
+      <li>Instruções de exploit live contra o ambiente de produção</li>
+      <li>Qualquer conteúdo sob o NDA do engajamento original</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>Contato / roles alvo</h3>
+    <p>Security Engineer · Penetration Tester · Security Consultant · AppSec Engineer.
+    Foco: API security, segurança de aplicações web, testes de lógica de negócio e relatórios de segurança.</p>
+  </div>
+</div>
+
+<!-- ============ PAGE 25 : CONCLUSION ============ -->
+<div class="page page-content" id="sec-concl">
+  <h2><span class="num">25</span> / CONCLUSÃO</h2>
+  <div class="sectionbar"></div>
+
+  <p class="big">A API avaliada é <b class="white">fundamentalmente sólida</b>: segurança de transporte forte,
+  integridade de JWT aplicada, RBAC/propriedade estritos, uploads validados por decode e CORS
+  restritivo. Nenhuma vulnerabilidade Crítica e nenhum IDOR explorável, injeção ou cadeia de escalada de
+  privilégio foi encontrada.</p>
+
+  <p>O risco residual se concentra em <b class="white">duas lacunas de regra de negócio</b> (F-01 role gate,
+  F-02 unicidade de CNPJ) que habilitam fraude de lojistas em escala. Ambas são baratas de corrigir e
+  são as prioridades máximas do roadmap. Todos os demais achados são melhorias de hardening e
+  confiabilidade.</p>
+
+  <div class="grid3" style="margin:6mm 0">
+    <div class="kpi"><div class="v">22</div><div class="l">Achados classificados</div></div>
+    <div class="kpi"><div class="v">0</div><div class="l">Críticos</div></div>
+    <div class="kpi"><div class="v">130</div><div class="l">Rotas verificadas</div></div>
+  </div>
+
+  <p class="center mono white" style="margin-top:8mm">— FIM DO RELATÓRIO —</p>
+  <p class="center tiny gray">Relatório de Avaliação de Segurança · Edição Pública de Portfólio · Versão 1.0 · 2026-08-29<br>
+  Sanitizado para distribuição pública · O relatório original permanece confidencial</p>
+</div>
+
+</body>
+</html>

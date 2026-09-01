@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460">
+  <defs>
+    <linearGradient id="bgT" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+    <marker id="arrowT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff2a4d"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="460" fill="url(#bgT)"/>
+  <text x="500" y="44" font-family="'DejaVu Sans Mono',monospace" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="5">LINHA DO TEMPO DO ENGAJAMENTO</text>
+  <line x1="360" y1="56" x2="640" y2="56" stroke="#c4001f" stroke-width="2"/>
+
+  <line x1="80" y1="250" x2="920" y2="250" stroke="#33333a" stroke-width="3"/>
+  <line x1="80" y1="250" x2="920" y2="250" stroke="#ff2a4d" stroke-width="1.5" marker-end="url(#arrowT)"/>
+
+  <g font-family="'DejaVu Sans Mono',monospace" font-size="11">
+    <!-- authorization -->
+    <circle cx="140" cy="250" r="8" fill="#ff2a4d"/>
+    <text x="140" y="300" fill="#ffffff" text-anchor="middle">AUTORIZAÇÃO</text>
+    <text x="140" y="318" fill="#8a8a93" text-anchor="middle" font-family="'DejaVu Sans',sans-serif" font-size="10">contrato assinado · escopo · credenciais</text>
+
+    <!-- recon -->
+    <circle cx="330" cy="250" r="8" fill="#ff2a4d"/>
+    <text x="330" y="200" fill="#ffffff" text-anchor="middle">RECON</text>
+    <text x="330" y="182" fill="#8a8a93" text-anchor="middle" font-family="'DejaVu Sans',sans-serif" font-size="10">inventário · mapa de rotas · fuzz</text>
+
+    <!-- oauth/blackbox -->
+    <circle cx="500" cy="250" r="8" fill="#ff2a4d"/>
+    <text x="500" y="300" fill="#ffffff" text-anchor="middle">TESTE ATIVO</text>
+    <text x="500" y="318" fill="#8a8a93" text-anchor="middle" font-family="'DejaVu Sans',sans-serif" font-size="10">OWASP Top10 · BOLA · race · upload</text>
+
+    <!-- brute -->
+    <circle cx="670" cy="250" r="8" fill="#ff2a4d"/>
+    <text x="670" y="200" fill="#ffffff" text-anchor="middle">DEEP-DIVE OFENSIVO</text>
+    <text x="670" y="182" fill="#8a8a93" text-anchor="middle" font-family="'DejaVu Sans',sans-serif" font-size="10">cobertura bruta · escalada</text>
+
+    <!-- reporting -->
+    <circle cx="840" cy="250" r="8" fill="#ff2a4d"/>
+    <text x="840" y="300" fill="#ffffff" text-anchor="middle">RELATÓRIO</text>
+    <text x="840" y="318" fill="#8a8a93" text-anchor="middle" font-family="'DejaVu Sans',sans-serif" font-size="10">sanitização · plano de remediação</text>
+  </g>
+
+  <g font-family="'DejaVu Sans Mono',monospace" font-size="10" fill="#8a8a93">
+    <text x="500" y="365" text-anchor="middle">TOTAL: ~90 minutos de teste ativo · 150+ requisições construídas · 130/130 endpoints cobertos</text>
+    <text x="500" y="385" text-anchor="middle">híbrido white-box (inventário no código) + black-box (não destrutivo)</text>
+  </g>
+</svg>

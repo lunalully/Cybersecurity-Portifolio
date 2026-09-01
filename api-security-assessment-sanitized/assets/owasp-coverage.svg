@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620">
+  <defs>
+    <linearGradient id="bgO" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="620" fill="url(#bgO)"/>
+  <text x="500" y="44" font-family="'DejaVu Sans Mono',monospace" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="5">COBERTURA OWASP TOP 10 (2021)</text>
+  <line x1="300" y1="56" x2="700" y2="56" stroke="#c4001f" stroke-width="2"/>
+
+  <g font-family="'DejaVu Sans Mono',monospace" font-size="13">
+    <rect x="60" y="80" width="880" height="34" fill="#1c1c22"/>
+    <text x="90" y="102" fill="#ffffff">CATEGORIA</text>
+    <text x="560" y="102" fill="#ffffff">STATUS</text>
+    <text x="760" y="102" fill="#ffffff">RESULTADO</text>
+  </g>
+
+  <g font-family="'DejaVu Sans Mono',monospace" font-size="12">
+    <g>
+      <rect x="60" y="120" width="880" height="42" fill="#121216"/>
+      <text x="90" y="146" fill="#c9c9d0">A01 Broken Access Control</text>
+      <text x="560" y="146" fill="#2d6a4f">RESISTENTE</text>
+      <text x="760" y="146" fill="#8a8a93">PASS · sem IDOR/BOLA</text>
+    </g>
+    <g>
+      <rect x="60" y="166" width="880" height="42" fill="#1a1a20"/>
+      <text x="90" y="192" fill="#c9c9d0">A02 Falhas Criptográficas</text>
+      <text x="560" y="192" fill="#2d6a4f">RESISTENTE</text>
+      <text x="760" y="192" fill="#8a8a93">TLS 1.3 · JWT forte</text>
+    </g>
+    <g>
+      <rect x="60" y="212" width="880" height="42" fill="#121216"/>
+      <text x="90" y="238" fill="#c9c9d0">A03 Injeção</text>
+      <text x="560" y="238" fill="#2d6a4f">NÃO OBSERVADO</text>
+      <text x="760" y="238" fill="#8a8a93">apenas amostragem</text>
+    </g>
+    <g>
+      <rect x="60" y="258" width="880" height="42" fill="#1a1a20"/>
+      <text x="90" y="284" fill="#c9c9d0">A04 Insecure Design</text>
+      <text x="560" y="284" fill="#e9a319">ACHADOS</text>
+      <text x="760" y="284" fill="#8a8a93">duplicação de CNPJ · escalada</text>
+    </g>
+    <g>
+      <rect x="60" y="304" width="880" height="42" fill="#121216"/>
+      <text x="90" y="330" fill="#c9c9d0">A05 Security Misconfiguration</text>
+      <text x="560" y="330" fill="#2d6a4f">RESISTENTE</text>
+      <text x="760" y="330" fill="#8a8a93">headers · CORS · métodos</text>
+    </g>
+    <g>
+      <rect x="60" y="350" width="880" height="42" fill="#1a1a20"/>
+      <text x="90" y="376" fill="#c9c9d0">A06 Componentes Vulneráveis</text>
+      <text x="560" y="376" fill="#4a4a55">NÃO VERIFICÁVEL</text>
+      <text x="760" y="376" fill="#8a8a93">sem SBOM exposto</text>
+    </g>
+    <g>
+      <rect x="60" y="396" width="880" height="42" fill="#121216"/>
+      <text x="90" y="422" fill="#c9c9d0">A07 Falhas de ID/Auth</text>
+      <text x="560" y="422" fill="#2d6a4f">RESISTENTE</text>
+      <text x="760" y="422" fill="#8a8a93">rate limit · sem mass-assign</text>
+    </g>
+    <g>
+      <rect x="60" y="442" width="880" height="42" fill="#1a1a20"/>
+      <text x="90" y="468" fill="#c9c9d0">A08 Integridade de Software/Dados</text>
+      <text x="560" y="468" fill="#e9a319">ACHADOS</text>
+      <text x="760" y="468" fill="#8a8a93">webhook fail-open</text>
+    </g>
+    <g>
+      <rect x="60" y="488" width="880" height="42" fill="#121216"/>
+      <text x="90" y="514" fill="#c9c9d0">A09 Logging e Monitoramento</text>
+      <text x="560" y="514" fill="#e9a319">REVISÃO</text>
+      <text x="760" y="514" fill="#8a8a93">x-request-id presente</text>
+    </g>
+    <g>
+      <rect x="60" y="534" width="880" height="42" fill="#1a1a20"/>
+      <text x="90" y="560" fill="#c9c9d0">A10 Server-Side Request Forgery</text>
+      <text x="560" y="560" fill="#4a4a55">NÃO TESTADO</text>
+      <text x="760" y="560" fill="#8a8a93">sem superfície de fetch de URL</text>
+    </g>
+  </g>
+</svg>

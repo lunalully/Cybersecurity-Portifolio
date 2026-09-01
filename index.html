@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luna Ferreira Reges · Security Engineer &amp; Pentester</title>
+<style>
+:root{
+  --bg:#0b0b0e; --panel:#141418; --panel2:#1a1a20; --line:#26262d;
+  --white:#ffffff; --gray:#8a8a93; --gray2:#b4b4bd;
+  --red:#ff2a4d; --red2:#c4001f;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{ font-family:'DejaVu Sans',sans-serif; background:var(--bg); color:#d7d7dc; line-height:1.6; }
+.mono{ font-family:'DejaVu Sans Mono',monospace; }
+.wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+/* ---------- NAV ---------- */
+nav{ position:sticky; top:0; z-index:10; background:rgba(11,11,14,.92); border-bottom:1px solid var(--line); backdrop-filter:blur(6px); }
+nav .wrap{ display:flex; justify-content:space-between; align-items:center; height:64px; }
+nav .brand{ font-family:'DejaVu Sans Mono',monospace; color:var(--white); letter-spacing:2px; font-size:13px; }
+nav .brand span{ color:var(--red); }
+nav a{ color:var(--gray); text-decoration:none; margin-left:22px; font-size:13px; letter-spacing:1px; font-family:'DejaVu Sans Mono',monospace; }
+nav a:hover{ color:var(--red); }
+
+/* ---------- HERO ---------- */
+.hero{ position:relative; padding:120px 0 90px; overflow:hidden; border-bottom:1px solid var(--line); }
+.hero .grid{ position:absolute; inset:0; opacity:.05; background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px); background-size:26px 26px; }
+.hero .wrap{ position:relative; }
+.hero .kicker{ font-family:'DejaVu Sans Mono',monospace; color:var(--red); letter-spacing:3px; font-size:13px; margin-bottom:18px; }
+.hero h1{ font-family:'DejaVu Sans Mono',monospace; font-size:42px; color:var(--white); line-height:1.2; letter-spacing:1px; }
+.hero h1 .accent{ color:var(--red); }
+.hero .sub{ margin-top:18px; font-size:17px; color:var(--gray2); max-width:640px; }
+.hero .cta{ margin-top:32px; }
+.btn{ display:inline-block; font-family:'DejaVu Sans Mono',monospace; font-size:13px; letter-spacing:1px; padding:13px 26px; text-decoration:none; border-radius:2px; }
+.btn-red{ background:var(--red); color:#fff; }
+.btn-red:hover{ background:var(--red2); }
+.btn-ghost{ border:1px solid var(--line); color:var(--gray2); margin-left:12px; }
+.btn-ghost:hover{ border-color:var(--red); color:var(--red); }
+
+/* ---------- SECTIONS ---------- */
+section{ padding:80px 0; border-bottom:1px solid var(--line); }
+.kicker{ font-family:'DejaVu Sans Mono',monospace; color:var(--red); letter-spacing:3px; font-size:12px; margin-bottom:10px; }
+h2{ font-family:'DejaVu Sans Mono',monospace; font-size:26px; color:var(--white); letter-spacing:1px; margin-bottom:36px; }
+h2 .num{ color:var(--red); }
+
+/* ---------- CASE ---------- */
+.case{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:36px; margin-bottom:28px; }
+.case .row{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+.case h3{ font-family:'DejaVu Sans Mono',monospace; color:var(--white); font-size:19px; }
+.case .tag{ font-size:12px; color:var(--red); font-family:'DejaVu Sans Mono',monospace; }
+.case .date{ color:var(--gray); font-size:12px; font-family:'DejaVu Sans Mono',monospace; }
+.case p{ color:var(--gray2); font-size:14px; margin-top:8px; }
+.case .highlights{ margin-top:16px; list-style:none; }
+.case .highlights li{ padding:8px 0 8px 24px; border-top:1px solid var(--line); font-size:13.5px; color:#c9c9d0; position:relative; }
+.case .highlights li::before{ content:"▸"; position:absolute; left:0; color:var(--red); }
+.kpis{ display:flex; gap:14px; margin-top:20px; flex-wrap:wrap; }
+.kpi{ flex:1; min-width:120px; background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:16px; text-align:center; }
+.kpi .v{ font-family:'DejaVu Sans Mono',monospace; font-size:24px; font-weight:bold; color:var(--red); }
+.kpi .l{ font-size:10.5px; color:var(--gray); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+
+/* ---------- SKILLS ---------- */
+.skills{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.skillbox{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px; }
+.skillbox h4{ font-family:'DejaVu Sans Mono',monospace; font-size:13px; color:var(--red); letter-spacing:1px; margin-bottom:10px; }
+.skillbox ul{ list-style:none; }
+.skillbox li{ font-size:13px; color:var(--gray2); padding:3px 0; }
+.skillbox li::before{ content:"▪"; color:var(--line); margin-right:8px; }
+
+/* ---------- TOOLS ---------- */
+.tools{ display:flex; gap:10px; flex-wrap:wrap; }
+.tool{ font-family:'DejaVu Sans Mono',monospace; font-size:12.5px; border:1px solid var(--line); color:var(--gray2); padding:8px 14px; border-radius:20px; }
+.tool:hover{ border-color:var(--red); color:var(--red); }
+
+/* ---------- FOOTER ---------- */
+footer{ padding:48px 0; text-align:center; }
+footer .mono{ color:var(--gray); font-size:12px; letter-spacing:1px; }
+footer a{ color:var(--red); text-decoration:none; }
+
+@media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Luna<span>_sec</span></div>
+    <div>
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#habilidades">Skills</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="grid"></div>
+  <div class="wrap">
+    <div class="kicker">// SECURITY ENGINEER · PENETRATION TESTER</div>
+    <h1>Luna Ferreira Reges<br>Eu encontro o que<br>os scanners <span class="accent">não encontram</span>.</h1>
+    <p class="sub">Testo a segurança de aplicações web e APIs com lógica de negócio, não só
+    payload. Conduzo assessments autorizados, valido controles de defesa e entrego relatórios
+    acionáveis, do exec summary ao roadmap de remediação.</p>
+    <div class="cta">
+      <a class="btn btn-red" href="api-security-assessment-sanitized/report.pdf">Ver relatório de 25 páginas</a>
+      <a class="btn btn-ghost" href="#projetos">Ver projetos</a>
+    </div>
+  </div>
+</header>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="wrap">
+    <div class="kicker">01 // SOBRE</div>
+    <h2>Quem sou</h2>
+    <p style="max-width:760px; color:var(--gray2); font-size:15px;">Especialista em segurança de
+    aplicações com foco em <b style="color:var(--white)">API security</b>, autenticação e
+    autorização, lógica de negócio e relatórios técnicos de alto nível. Acredito que o valor de
+    um teste de intrusão está em <b style="color:var(--white)">provar o que funciona</b> tanto
+    quanto encontrar o que quebra, e em transformar achados em decisões.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">130</div><div class="l">rotas testadas</div></div>
+      <div class="kpi"><div class="v">10/10</div><div class="l">cobertura OWASP</div></div>
+      <div class="kpi"><div class="v">22</div><div class="l">achados classificados</div></div>
+      <div class="kpi"><div class="v">25</div><div class="l">págs de relatório</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos">
+  <div class="wrap">
+    <div class="kicker">02 // PROJETO</div>
+    <h2>Assessment em destaque</h2>
+
+    <div class="case">
+      <div class="row">
+        <h3>API Security Assessment · Food-Delivery SaaS</h3>
+        <span class="tag">AUTORIZADO · SANITIZADO</span>
+      </div>
+      <div class="row"><span class="date">2026 · Go / Gin REST API · 130 rotas · 3 perfis</span></div>
+      <p>Pentest completo em uma API de delivery: inventário de rotas pelo código-fonte, teste em
+      runtime com os 3 perfis (cliente, loja, admin) e cobertura integral do OWASP Top 10.</p>
+      <ul class="highlights">
+        <li><b style="color:var(--white)">2 High (CVSS 8.8 / 8.1):</b> bugs de negócio que scanner não acha: escalada de role no
+        <span class="mono">POST /store</span> e duplicação massiva de CNPJ (provada com burst paralelo).</li>
+        <li><b style="color:var(--white)">0 críticos · sem IDOR · sem injeção:</b> JWT, RBAC, upload
+        (decode-validation) e CORS testados ativamente e validados.</li>
+        <li><b style="color:var(--white)">Entrega profissional:</b> relatório de 25 páginas, mapeamento
+        CVSS/CWE/OWASP/ATT&amp;CK e roadmap 7/30/60/90 com donos.</li>
+        <li><b style="color:var(--white)">Sanitização total:</b> edição pública sem expor o cliente, confidencialidade sob NDA.</li>
+      </ul>
+      <div class="kpis">
+        <div class="kpi"><div class="v">0</div><div class="l">Críticos</div></div>
+        <div class="kpi"><div class="v">2</div><div class="l">High</div></div>
+        <div class="kpi"><div class="v">4</div><div class="l">Medium</div></div>
+        <div class="kpi"><div class="v">7</div><div class="l">Low</div></div>
+        <div class="kpi"><div class="v">9</div><div class="l">Info</div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--gray); font-size:13px;">Repositório completo com os 22 achados, evidências
+    sanitizadas, diagramas e o relatório em PDF: <a href="https://github.com/lunalully/Cybersecurity-Portifolio" target="_blank" rel="noopener" style="color:var(--red)">github.com/lunalully/Cybersecurity-Portifolio</a></p>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="wrap">
+    <div class="kicker">03 // HABILIDADES</div>
+    <h2>Skills &amp; stack</h2>
+    <div class="skills">
+      <div class="skillbox">
+        <h4>SEGURANÇA OFENSIVA</h4>
+        <ul><li>Penetration Testing</li><li>API Security</li><li>Web App Security</li><li>Business Logic Testing</li><li>Race Conditions</li></ul>
+      </div>
+      <div class="skillbox">
+        <h4>AUTH &amp; CRIPTO</h4>
+        <ul><li>JWT / HS256 / Token Tampering</li><li>OAuth &amp; Session Testing</li><li>RBAC / IDOR / BOLA</li><li>TLS Review</li><li>CORS &amp; Headers</li></ul>
+      </div>
+      <div class="skillbox">
+        <h4>FRAMEWORKS</h4>
+        <ul><li>OWASP Top 10 / ASVS</li><li>MITRE ATT&amp;CK</li><li>CVSS v3.1</li><li>CWE</li></ul>
+      </div>
+      <div class="skillbox">
+        <h4>ENTREGA</h4>
+        <ul><li>Relatórios executivos</li><li>Roadmap de remediação</li><li>Sanitização NDA</li><li>Documentação técnica</li></ul>
+      </div>
+    </div>
+    <h2 style="margin-top:48px; font-size:18px;">Ferramentas</h2>
+    <div class="tools">
+      <span class="tool">curl</span><span class="tool">OpenSSL</span><span class="tool">ffuf</span>
+      <span class="tool">Nuclei</span><span class="tool">Burp Suite</span><span class="tool">JWT decoder</span>
+      <span class="tool">Linux / bash</span><span class="tool">Go</span><span class="tool">Postman</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<footer id="contato">
+  <div class="wrap">
+    <div class="kicker">04 // CONTATO</div>
+    <p class="mono" style="color:var(--white); font-size:15px;">Interessado em segurança de aplicações?</p>
+    <p style="margin-top:10px;">
+      
+      <a href="https://www.linkedin.com/in/luna-ferreira-reges-7b717642a/" target="_blank" rel="noopener">LinkedIn</a> · 
+      <a href="https://github.com/lunalully" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <p class="mono" style="margin-top:28px; font-size:11px; color:#5b5b66;">Luna_sec © 2026 · API Security · Pentest · AppSec</p>
+  </div>
+</footer>
+
+</body>
+</html>

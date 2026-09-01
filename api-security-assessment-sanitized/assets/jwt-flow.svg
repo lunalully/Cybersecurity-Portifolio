@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560">
+  <defs>
+    <linearGradient id="bgJ" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+    <linearGradient id="rdJ" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2a4d"/>
+      <stop offset="1" stop-color="#b8001e"/>
+    </linearGradient>
+    <marker id="arrowJ" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ff2a4d"/>
+    </marker>
+    <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2d6a4f"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="560" fill="url(#bgJ)"/>
+  <text x="500" y="44" font-family="'DejaVu Sans Mono',monospace" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="5">FLUXO DE VALIDAÇÃO DE JWT</text>
+  <line x1="330" y1="56" x2="670" y2="56" stroke="#c4001f" stroke-width="2"/>
+
+  <g transform="translate(60,100)">
+    <rect width="180" height="62" rx="4" fill="#1a1a20" stroke="#33333a" stroke-width="1.5"/>
+    <text x="90" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">REQUISIÇÃO</text>
+    <text x="90" y="48" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">Bearer &lt;access_token&gt;</text>
+  </g>
+  <line x1="240" y1="131" x2="310" y2="131" stroke="#ff2a4d" stroke-width="2" marker-end="url(#arrowJ)"/>
+
+  <g transform="translate(320,100)">
+    <rect width="220" height="62" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="110" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">VERIFICAÇÃO DE ASSINATURA</text>
+    <text x="110" y="48" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">HS256 · rejeitar alg:none</text>
+  </g>
+  <line x1="540" y1="131" x2="610" y2="131" stroke="#ff2a4d" stroke-width="2" marker-end="url(#arrowJ)"/>
+
+  <g transform="translate(620,100)">
+    <rect width="220" height="62" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="110" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">VALIDAÇÃO DE CLAIMS</text>
+    <text x="110" y="48" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">exp · iss · jti · uid · role</text>
+  </g>
+
+  <g transform="translate(60,230)">
+    <rect width="190" height="62" rx="4" fill="#1c1c22" stroke="#2d6a4f" stroke-width="1.5"/>
+    <text x="95" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#2d6a4f" text-anchor="middle">TOKEN VÁLIDO</text>
+    <text x="95" y="48" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">200 · proceed to handler</text>
+  </g>
+  <g transform="translate(620,230)">
+    <rect width="220" height="62" rx="4" fill="#1c1c22" stroke="#c4001f" stroke-width="1.5"/>
+    <text x="110" y="30" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ff2a4d" text-anchor="middle">TOKEN INVÁLIDO</text>
+    <text x="110" y="48" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">401 invalid token</text>
+  </g>
+  <line x1="540" y1="131" x2="155" y2="230" stroke="#2d6a4f" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowG)"/>
+  <line x1="730" y1="162" x2="730" y2="230" stroke="#c4001f" stroke-width="2" marker-end="url(#arrowJ)"/>
+
+  <g transform="translate(60,360)">
+    <rect width="560" height="70" rx="4" fill="#0e0e12" stroke="#33333a" stroke-width="1.5"/>
+    <text x="280" y="28" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#ffffff" text-anchor="middle">CONTROLES VALIDADOS (TESTES NEGATIVOS)</text>
+    <text x="280" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#2d6a4f" text-anchor="middle">alg:none → 401 · uid/role adulterados → 401 · expirado (exp:1000) → 401 ·</text>
+    <text x="280" y="64" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#2d6a4f" text-anchor="middle">chave RS256 falsa → 401 · refresh exige refresh_token + device_id</text>
+  </g>
+
+  <g transform="translate(660,360)">
+    <rect width="280" height="70" rx="4" fill="#15151a" stroke="#33333a" stroke-width="1.5"/>
+    <text x="140" y="28" font-family="'DejaVu Sans Mono',monospace" font-size="11" fill="#ffffff" text-anchor="middle">OBSERVAÇÕES</text>
+    <text x="140" y="50" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#8a8a93" text-anchor="middle">TTL 900s · jti único por login</text>
+    <text x="140" y="64" font-family="'DejaVu Sans',sans-serif" font-size="10" fill="#e9a319" text-anchor="middle">nomenclatura da role: store vs store_owner</text>
+  </g>
+
+  <line x1="320" y1="430" x2="320" y2="480" stroke="#4a4a55" stroke-width="1.5" marker-end="url(#arrowG)"/>
+  <g transform="translate(60,480)">
+    <rect width="520" height="52" rx="4" fill="#1a1a20" stroke="#2d6a4f" stroke-width="1.5"/>
+    <text x="260" y="31" font-family="'DejaVu Sans Mono',monospace" font-size="12" fill="#2d6a4f" text-anchor="middle">RESULTADO: ASSINATURA/VALIDAÇÃO DE JWT ROBUSTA</text>
+  </g>
+</svg>

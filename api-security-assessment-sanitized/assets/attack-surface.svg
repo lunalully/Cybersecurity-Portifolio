@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <defs>
+    <linearGradient id="bgAS" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#bgAS)"/>
+  <text x="450" y="44" font-family="'DejaVu Sans Mono',monospace" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="5">SUPERFÍCIE DE ATAQUE</text>
+  <line x1="300" y1="56" x2="600" y2="56" stroke="#c4001f" stroke-width="2"/>
+
+  <g font-family="'DejaVu Sans Mono',monospace" font-size="12">
+    <text x="80" y="112" fill="#ffffff">Infra</text>
+    <rect x="200" y="94" width="60" height="26" fill="#4a4a55"/><text x="230" y="112" fill="#ffffff" text-anchor="middle" font-size="11">4</text>
+    <text x="270" y="112" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">pública · metrics auth · uploads</text>
+
+    <text x="80" y="162" fill="#ffffff">Auth</text>
+    <rect x="200" y="144" width="105" height="26" fill="#4a4a55"/><text x="252" y="162" fill="#ffffff" text-anchor="middle" font-size="11">7</text>
+    <text x="270" y="162" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">login ×3 · refresh · logout</text>
+
+    <text x="80" y="212" fill="#ffffff">OAuth (cond.)</text>
+    <rect x="200" y="194" width="75" height="26" fill="#4a4a55"/><text x="237" y="212" fill="#ffffff" text-anchor="middle" font-size="11">0–10</text>
+    <text x="270" y="212" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">Google / Apple · env-gated</text>
+
+    <text x="80" y="262" fill="#ffffff">Catalog</text>
+    <rect x="200" y="244" width="315" height="26" fill="#2d6a4f"/><text x="357" y="262" fill="#ffffff" text-anchor="middle" font-size="11">21</text>
+    <text x="270" y="282" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">JWT opcional · leituras públicas</text>
+
+    <text x="80" y="332" fill="#ffffff">Protected JWT</text>
+    <rect x="200" y="314" width="300" height="26" fill="#e9a319"/><text x="350" y="332" fill="#111114" text-anchor="middle" font-size="11">~70</text>
+    <text x="270" y="352" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">middleware JWT · propriedade a nível de handler</text>
+
+    <text x="80" y="402" fill="#ffffff">Admin</text>
+    <rect x="200" y="384" width="195" height="26" fill="#ff2a4d"/><text x="297" y="402" fill="#ffffff" text-anchor="middle" font-size="11">13</text>
+    <text x="270" y="422" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">JWT + role gate admin/suporte</text>
+
+    <text x="80" y="472" fill="#ffffff">Webhooks</text>
+    <rect x="200" y="454" width="30" height="26" fill="#4a4a55"/><text x="215" y="472" fill="#ffffff" text-anchor="middle" font-size="11">2</text>
+    <text x="270" y="472" fill="#8a8a93" font-family="'DejaVu Sans',sans-serif" font-size="10">asaas · validação de assinatura</text>
+  </g>
+
+  <text x="450" y="505" font-family="'DejaVu Sans Mono',monospace" font-size="11" fill="#8a8a93" text-anchor="middle">TOTAL: 130 rotas fixas + 5 por provedor OAuth (máx. 140)</text>
+</svg>

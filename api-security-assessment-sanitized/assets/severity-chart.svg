@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480">
+  <defs>
+    <linearGradient id="bgS" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0b0e"/>
+      <stop offset="1" stop-color="#131317"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="480" fill="url(#bgS)"/>
+  <text x="450" y="44" font-family="'DejaVu Sans Mono',monospace" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="5">ACHADOS POR SEVERIDADE</text>
+  <line x1="280" y1="56" x2="620" y2="56" stroke="#c4001f" stroke-width="2"/>
+
+  <!-- bars: INFO 9, LOW 7, MEDIUM 4, HIGH 2 -->
+  <g font-family="'DejaVu Sans Mono',monospace">
+    <rect x="120" y="330" width="150" height="80" fill="#4a4a55"/>
+    <text x="195" y="395" font-size="28" fill="#ffffff" text-anchor="middle" font-weight="bold">9</text>
+    <text x="195" y="335" font-size="13" fill="#c9c9d0" text-anchor="middle">INFO</text>
+
+    <rect x="300" y="280" width="150" height="130" fill="#2d6a4f"/>
+    <text x="375" y="345" font-size="28" fill="#ffffff" text-anchor="middle" font-weight="bold">7</text>
+    <text x="375" y="285" font-size="13" fill="#c9c9d0" text-anchor="middle">LOW</text>
+
+    <rect x="480" y="210" width="150" height="200" fill="#e9a319"/>
+    <text x="555" y="275" font-size="28" fill="#111114" text-anchor="middle" font-weight="bold">4</text>
+    <text x="555" y="215" font-size="13" fill="#c9c9d0" text-anchor="middle">MEDIUM</text>
+
+    <rect x="660" y="120" width="150" height="290" fill="#ff2a4d"/>
+    <text x="735" y="185" font-size="28" fill="#ffffff" text-anchor="middle" font-weight="bold">2</text>
+    <text x="735" y="125" font-size="13" fill="#c9c9d0" text-anchor="middle">HIGH</text>
+  </g>
+
+  <line x1="80" y1="430" x2="850" y2="430" stroke="#33333a" stroke-width="1.5"/>
+  <text x="450" y="458" font-family="'DejaVu Sans',sans-serif" font-size="12" fill="#8a8a93" text-anchor="middle">Total: 22 achados · 0 CRÍTICO · sem IDOR / escalada de privilégio exploráveis</text>
+</svg>

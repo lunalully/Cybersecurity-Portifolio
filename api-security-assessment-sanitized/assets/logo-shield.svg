@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0a0c"/>
+      <stop offset="1" stop-color="#111114"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff2a4d"/>
+      <stop offset="1" stop-color="#c4001f"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <path d="M120 90 H520 V330 Q520 470 320 560 Q120 470 120 330 Z" fill="#16161a" stroke="#c4001f" stroke-width="6"/>
+  <path d="M120 90 H520" stroke="#ff2a4d" stroke-width="3" opacity="0.6"/>
+  <path d="M140 110 H500 V325 Q500 455 320 540 Q140 455 140 325 Z" fill="#0e0e12" stroke="#33333a" stroke-width="2"/>
+  <path d="M320 160 L420 205 V320 Q420 430 320 505 Q220 430 220 320 V205 Z" fill="#121216" stroke="#ff2a4d" stroke-width="4"/>
+  <path d="M320 200 L388 230 V320 Q388 408 320 470 Q252 408 252 320 V230 Z" fill="#1a1a20"/>
+  <circle cx="320" cy="320" r="58" fill="none" stroke="#ff2a4d" stroke-width="8"/>
+  <circle cx="320" cy="320" r="26" fill="url(#red)"/>
+  <path d="M320 294 L320 346 M294 320 L346 320" stroke="#ffffff" stroke-width="6" stroke-linecap="round"/>
+  <path d="M196 480 H444" stroke="#ff2a4d" stroke-width="2" opacity="0.8"/>
+  <path d="M210 500 H430" stroke="#c4001f" stroke-width="1.5" opacity="0.5"/>
+</svg>
