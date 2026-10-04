@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Luna Ferreira Reges · Security Engineer &amp; Pentester</title>
+<title>Luna Ferreira Reges · Pentester Web/API e Analista de Segurança (SOC)</title>
+<meta name="description" content="Luna Ferreira Reges, Pentester Web/API e Analista de Segurança (SOC) no projeto Cardapya. Pentests em aplicações web e APIs, monitoramento defensivo e três ferramentas autorais: Lunatic, Koffuster e Nullvein SQL.">
 <style>
 :root{
   --bg:#0b0b0e; --panel:#141418; --panel2:#1a1a20; --line:#26262d;
-  --white:#ffffff; --gray:#8a8a93; --gray2:#b4b4bd;
+  --white:#ffffff; --gray:#9a9aa3; --gray2:#b4b4bd;
   --red:#ff2a4d; --red2:#c4001f;
 }
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -78,18 +79,48 @@ footer{ padding:48px 0; text-align:center; }
 footer .mono{ color:var(--gray); font-size:12px; letter-spacing:1px; }
 footer a{ color:var(--red); text-decoration:none; }
 
-@media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } }
+
+/* ---------- ACESSIBILIDADE ---------- */
+a:focus-visible,button:focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
+.skip{ position:absolute; left:-999px; top:8px; background:var(--red); color:#fff; padding:8px 14px; z-index:20; font-family:'DejaVu Sans Mono',monospace; font-size:13px; }
+.skip:focus{ left:8px; }
+@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+nav .wrap{ gap:12px; }
+nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
+.sec-intro{ max-width:760px; color:var(--gray2); font-size:15px; margin:-14px 0 28px; }
+.note{ margin-top:18px; padding:14px 16px; border-left:3px solid var(--red); background:var(--panel2); font-size:13px; color:var(--gray2); }
+.note b{ color:var(--white); }
+.note ul{ margin:8px 0 0 18px; }
+.case h4.sub{ font-family:'DejaVu Sans Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--red); margin-top:22px; }
+.case ul.plain{ margin:8px 0 0 18px; font-size:13.5px; color:#c9c9d0; }
+.case ul.plain li{ padding:2px 0; }
+.meta{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chip{ font-family:'DejaVu Sans Mono',monospace; font-size:11.5px; border:1px solid var(--line); color:var(--gray2); padding:3px 10px; border-radius:20px; }
+.chip.hot{ border-color:var(--red); color:var(--red); }
+.links-row{ margin-top:22px; display:flex; flex-wrap:wrap; gap:12px; }
+.links-row .btn{ margin-left:0; padding:10px 18px; }
+.term{ position:relative; margin-top:14px; background:#08080a; border:1px solid var(--line); border-radius:6px; }
+.term pre{ overflow-x:auto; padding:14px 16px; font-family:'DejaVu Sans Mono',monospace; font-size:12.5px; line-height:1.7; color:#e4e4ea; }
+.term .copy{ position:absolute; top:8px; right:8px; font-family:'DejaVu Sans Mono',monospace; font-size:11px; background:var(--panel2); color:var(--gray2); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer; }
+.term .copy:hover{ border-color:var(--red); color:var(--red); }
+.term pre{ padding-right:84px; }
+.tool-grid{ display:grid; gap:28px; }
+.stack-label{ font-size:12px; color:var(--gray); margin:0 0 14px; }
+.stack-label.first{ margin-top:0; }
+@media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } .case{ padding:22px; } .hero{ padding:80px 0 60px; } }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
 
-<nav>
+<nav aria-label="Navegação principal">
   <div class="wrap">
     <div class="brand">Luna<span>_sec</span></div>
-    <div>
+    <div class="links">
       <a href="#sobre">Sobre</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#habilidades">Skills</a>
+      <a href="#cardapya">Cardapya</a>
+      <a href="#ferramentas">Ferramentas</a>
+      <a href="#habilidades">Stack</a>
       <a href="#contato">Contato</a>
     </div>
   </div>
@@ -97,85 +128,256 @@ footer a{ color:var(--red); text-decoration:none; }
 
 <!-- HERO -->
 <header class="hero">
-  <div class="grid"></div>
+  <div class="grid" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="kicker">// SECURITY ENGINEER · PENETRATION TESTER</div>
+    <div class="kicker">// PENTESTER WEB/API · ANALISTA DE SEGURANÇA (SOC)</div>
     <h1>Luna Ferreira Reges<br>Eu encontro o que<br>os scanners <span class="accent">não encontram</span>.</h1>
-    <p class="sub">Testo a segurança de aplicações web e APIs com lógica de negócio, não só
-    payload. Conduzo assessments autorizados, valido controles de defesa e entrego relatórios
-    acionáveis, do exec summary ao roadmap de remediação.</p>
+    <p class="sub">Responsável pela segurança do projeto Cardapya, com atuação ofensiva e defensiva
+    sobre a aplicação web e as APIs da plataforma: pentest Web/API, monitoramento de eventos
+    suspeitos, relatórios técnicos e três ferramentas autorais.</p>
     <div class="cta">
-      <a class="btn btn-red" href="api-security-assessment-sanitized/report.pdf">Ver relatório de 25 páginas</a>
-      <a class="btn btn-ghost" href="#projetos">Ver projetos</a>
+      <a class="btn btn-red" href="#cardapya">Ver o trabalho na Cardapya</a>
+      <a class="btn btn-ghost" href="#ferramentas">Ver ferramentas autorais</a>
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <!-- SOBRE -->
 <section id="sobre">
   <div class="wrap">
     <div class="kicker">01 // SOBRE</div>
     <h2>Quem sou</h2>
-    <p style="max-width:760px; color:var(--gray2); font-size:15px;">Especialista em segurança de
-    aplicações com foco em <b style="color:var(--white)">API security</b>, autenticação e
-    autorização, lógica de negócio e relatórios técnicos de alto nível. Acredito que o valor de
-    um teste de intrusão está em <b style="color:var(--white)">provar o que funciona</b> tanto
-    quanto encontrar o que quebra, e em transformar achados em decisões.</p>
-    <div class="kpis">
-      <div class="kpi"><div class="v">130</div><div class="l">rotas testadas</div></div>
-      <div class="kpi"><div class="v">10/10</div><div class="l">cobertura OWASP</div></div>
-      <div class="kpi"><div class="v">22</div><div class="l">achados classificados</div></div>
-      <div class="kpi"><div class="v">25</div><div class="l">págs de relatório</div></div>
+    <p style="max-width:760px; color:var(--gray2); font-size:15px;">Sou
+    <b style="color:var(--white)">Pentester Web/API e Analista de Segurança (SOC)</b> e respondo pela
+    segurança do projeto Cardapya. Na frente ofensiva, defino escopo e metodologia, executo pentests
+    em aplicações web e APIs, identifico e valido vulnerabilidades, coleto evidências, elaboro
+    relatórios técnicos e acompanho as correções implementadas, escolhendo as ferramentas conforme
+    o contexto, o escopo e o objetivo de cada avaliação.</p>
+    <p style="max-width:760px; color:var(--gray2); font-size:15px; margin-top:14px;">Na frente defensiva,
+    monitoro eventos e comportamentos suspeitos com Grafana, Suricata e os logs disponíveis no
+    Dokploy. Leio e interpreto logs, investigo tentativas de intrusão, analiso indicadores, apoio a
+    mitigação de ameaças e escrevo relatórios dos incidentes de segurança. Atuar nas duas frentes
+    permite relacionar os testes ofensivos ao comportamento observado no ambiente e acompanhar os
+    controles e as mitigações aplicadas.</p>
+    <p style="max-width:760px; color:var(--gray2); font-size:15px; margin-top:14px;">Estruturei a
+    atuação ofensiva e defensiva da Cardapya, conectando pentests Web/API, monitoramento e resposta
+    a incidentes.</p>
+  </div>
+</section>
+
+<!-- CARDAPYA -->
+<section id="cardapya">
+  <div class="wrap">
+    <div class="kicker">02 // EXPERIÊNCIA</div>
+    <h2>Cardapya: atuação ofensiva e defensiva</h2>
+
+    <div class="case">
+      <div class="row">
+        <h3>Pentester Web/API e Analista de Segurança (SOC)</h3>
+        <span class="tag">CARDAPYA · AUTORIZADO · SANITIZADO</span>
+      </div>
+      <p><b style="color:var(--white)">Contexto.</b> Aplicação web e APIs da plataforma Cardapya, com
+      avaliações autorizadas e monitoramento do ambiente. O que é público aqui é um resumo
+      profissional; evidências, logs e dados operacionais não são divulgados.</p>
+
+      <h4 class="sub">FRENTE OFENSIVA</h4>
+      <ul class="highlights">
+        <li>Avaliei <b style="color:var(--white)">aproximadamente 130 rotas</b> da API com perfis de
+        cliente, estabelecimento e administrador, verificando autenticação, autorização e isolamento
+        de dados.</li>
+        <li>Identifiquei duplicação de cadastros sob requisições simultâneas, fornecendo evidências
+        para orientar correções de unicidade e concorrência.</li>
+        <li>Realizei validações manuais e retestes, consolidando alertas automatizados e ajustando a
+        classificação dos achados conforme as evidências e as regras de negócio.</li>
+      </ul>
+
+      <h4 class="sub">FRENTE DEFENSIVA</h4>
+      <ul class="highlights">
+        <li>Investiguei atividades suspeitas contra o SSH e implementei <b style="color:var(--white)">34
+        regras de bloqueio persistentes no firewall</b>, sem novos eventos da faixa bloqueada na
+        janela pós-mitigação analisada.</li>
+        <li>Endureci SSH e Fail2Ban, ampliando bloqueios de 10 minutos para 2 horas, ativando proteção
+        contra reincidência e reduzindo as tentativas de autenticação permitidas por conexão.</li>
+      </ul>
+
+      <h4 class="sub">ENTREGA E CONTINUIDADE</h4>
+      <ul class="highlights">
+        <li>Produzi relatórios técnicos e executivos com evidências, impacto e recomendações
+        priorizadas, apoiando decisões de correção e acompanhamento dos riscos.</li>
+        <li>Orientei e documentei procedimentos reproduzíveis, apoiando a transferência de
+        conhecimento e a continuidade das avaliações de segurança.</li>
+      </ul>
+
+      <div class="kpis">
+        <div class="kpi"><div class="v">~130</div><div class="l">rotas da API avaliadas</div></div>
+        <div class="kpi"><div class="v">3</div><div class="l">perfis: cliente, estabelecimento, admin</div></div>
+        <div class="kpi"><div class="v">34</div><div class="l">regras de bloqueio persistentes no firewall</div></div>
+        <div class="kpi"><div class="v">10 min → 2 h</div><div class="l">duração dos bloqueios do Fail2Ban</div></div>
+      </div>
+
+      <div class="note">
+        <b>Limites dos resultados</b>
+        <ul>
+          <li>&ldquo;Aproximadamente 130 rotas&rdquo; descreve o escopo avaliado, não cobertura absoluta da
+          plataforma inteira nem de todas as versões da API.</li>
+          <li>As 34 regras são regras de bloqueio persistentes no firewall, não 34 invasões impedidas nem
+          34 vulnerabilidades corrigidas.</li>
+          <li>&ldquo;Sem novos eventos&rdquo; vale para a faixa bloqueada e a janela pós-mitigação analisada; não
+          indica ausência global de ataques.</li>
+          <li>Identificar, recomendar, implementar e validar são etapas distintas: uma correção
+          recomendada não é uma correção realizada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="row">
+        <h3>Assessment de API (edição pública sanitizada)</h3>
+        <span class="tag">SANITIZADO</span>
+      </div>
+      <p>Edição pública de um assessment de API REST (Go / Gin) de um SaaS de delivery de comida, com
+      metodologia white-box + black-box, bateria de testes por categoria do OWASP Top 10 (2021),
+      evidências sanitizadas, diagramas e roadmap de hardening. Todos os dados do cliente, hostnames,
+      identificadores e segredos foram removidos; o relatório original é confidencial.</p>
+      <div class="links-row">
+        <a class="btn btn-red" href="api-security-assessment-sanitized/report.pdf">Relatório sanitizado (PDF)</a>
+        <a class="btn btn-ghost" href="api-security-assessment-sanitized/README.md">Resumo e metodologia</a>
+        <a class="btn btn-ghost" href="https://github.com/lunalully/Cybersecurity-Portifolio" target="_blank" rel="noopener">Repositório no GitHub</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PROJETOS -->
-<section id="projetos">
+<!-- FERRAMENTAS -->
+<section id="ferramentas">
   <div class="wrap">
-    <div class="kicker">02 // PROJETO</div>
-    <h2>Assessment em destaque</h2>
+    <div class="kicker">03 // FERRAMENTAS AUTORAIS</div>
+    <h2>Ferramentas que eu desenvolvo</h2>
+    <p class="sec-intro">Três ferramentas de linha de comando de minha autoria, cada uma com um papel
+    distinto. Todas são para uso apenas em alvos com autorização. Descrições conforme o README de cada
+    repositório.</p>
 
-    <div class="case">
-      <div class="row">
-        <h3>API Security Assessment · Food-Delivery SaaS</h3>
-        <span class="tag">AUTORIZADO · SANITIZADO</span>
-      </div>
-      <div class="row"><span class="date">2026 · Go / Gin REST API · 130 rotas · 3 perfis</span></div>
-      <p>Pentest completo em uma API de delivery: inventário de rotas pelo código-fonte, teste em
-      runtime com os 3 perfis (cliente, loja, admin) e cobertura integral do OWASP Top 10.</p>
-      <ul class="highlights">
-        <li><b style="color:var(--white)">2 High (CVSS 8.8 / 8.1):</b> bugs de negócio que scanner não acha: escalada de role no
-        <span class="mono">POST /store</span> e duplicação massiva de CNPJ (provada com burst paralelo).</li>
-        <li><b style="color:var(--white)">0 críticos · sem IDOR · sem injeção:</b> JWT, RBAC, upload
-        (decode-validation) e CORS testados ativamente e validados.</li>
-        <li><b style="color:var(--white)">Entrega profissional:</b> relatório de 25 páginas, mapeamento
-        CVSS/CWE/OWASP/ATT&amp;CK e roadmap 7/30/60/90 com donos.</li>
-        <li><b style="color:var(--white)">Sanitização total:</b> edição pública sem expor o cliente, confidencialidade sob NDA.</li>
-      </ul>
-      <div class="kpis">
-        <div class="kpi"><div class="v">0</div><div class="l">Críticos</div></div>
-        <div class="kpi"><div class="v">2</div><div class="l">High</div></div>
-        <div class="kpi"><div class="v">4</div><div class="l">Medium</div></div>
-        <div class="kpi"><div class="v">7</div><div class="l">Low</div></div>
-        <div class="kpi"><div class="v">9</div><div class="l">Info</div></div>
-      </div>
+    <div class="tool-grid">
+
+      <article class="case" id="lunatic" aria-labelledby="t-lunatic">
+        <div class="row">
+          <h3 id="t-lunatic">Lunatic</h3>
+          <span class="tag">RECONHECIMENTO PASSIVO</span>
+        </div>
+        <div class="meta"><span class="chip hot">Go 1.24+</span><span class="chip">CLI</span><span class="chip">Licença MIT</span><span class="chip">v0.1.0</span></div>
+        <p>Descoberta passiva de subdomínios. Consulta apenas bancos de dados de terceiros (CT logs,
+        arquivos web, DNS passivo, motores de busca de ativos) e nunca varre, faz força bruta, resolve DNS
+        ou faz requisição HTTP ao alvo. O resultado é um ponto de partida, não um inventário fechado: os
+        nomes não são confirmados como ativos, resolvíveis ou pertencentes ao alvo.</p>
+        <h4 class="sub">FUNCIONALIDADES</h4>
+        <ul class="plain">
+          <li>Consulta concorrente a fontes de terceiros, com normalização, remoção de duplicatas e filtro de escopo.</li>
+          <li>Entrada por domínio (<span class="mono">-d</span>) ou arquivo de domínios (<span class="mono">-dL</span>); seleção e exclusão de fontes; <span class="mono">--list-sources</span>.</li>
+          <li>Saída em texto ou JSON Lines (<span class="mono">--json</span>), opcionalmente com as fontes de cada resultado.</li>
+          <li>Proteção passiva: o cliente HTTP recusa requisições ao domínio alvo e a seus subdomínios.</li>
+        </ul>
+        <h4 class="sub">REQUISITOS E LIMITAÇÕES</h4>
+        <ul class="plain">
+          <li>Go 1.24+; documentado em Linux/Kali; compilação a partir do código-fonte.</li>
+          <li>Funciona sem chave de API (rodam só as fontes gratuitas); chaves são opcionais.</li>
+          <li>Resultados não são validados; falha parcial de fontes e cotas gratuitas podem reduzir a saída.</li>
+        </ul>
+        <h4 class="sub">EXEMPLO DE USO</h4>
+        <div class="term"><button type="button" class="copy" data-target="cmd-lunatic" aria-label="Copiar comandos de Lunatic">Copiar</button><pre id="cmd-lunatic"><code>git clone https://github.com/lunalully/lunatic.git lunatic
+cd lunatic
+make build
+lunatic -d example.com
+lunatic -d example.com --json -o resultados.jsonl
+lunatic --list-sources</code></pre></div>
+        <div class="links-row"><a class="btn btn-red" href="https://github.com/lunalully/lunatic" target="_blank" rel="noopener">Repositório e documentação</a></div>
+      </article>
+
+      <article class="case" id="koffuster" aria-labelledby="t-koffuster">
+        <div class="row">
+          <h3 id="t-koffuster">Koffuster</h3>
+          <span class="tag">RECONHECIMENTO ATIVO · FUZZING</span>
+        </div>
+        <div class="meta"><span class="chip hot">KOF (Kof4j)</span><span class="chip">CLI</span><span class="chip">Licença GPLv3</span><span class="chip">v0.2.0</span></div>
+        <p>Ferramenta de enumeração ativa para terminal, escrita em KOF. Reúne os modos mais comuns de
+        reconhecimento e um modo de fuzzing com substituição de <span class="mono">FUZZ</span>. Todo
+        achado é reportado como achado de enumeração, nunca como vulnerabilidade: a ferramenta não
+        explora nada, apenas sonda e reporta.</p>
+        <h4 class="sub">MODOS IMPLEMENTADOS</h4>
+        <ul class="plain">
+          <li><span class="mono">dir</span>: força bruta de diretórios e arquivos, com extensões e filtros de status e tamanho.</li>
+          <li><span class="mono">dns</span>: enumeração de subdomínios via DNS-over-HTTPS.</li>
+          <li><span class="mono">vhost</span>: descoberta de virtual hosts pelo cabeçalho Host.</li>
+          <li><span class="mono">fuzz</span>: substitui FUZZ na URL, em cabeçalhos ou no corpo, com método configurável.</li>
+          <li><span class="mono">s3</span> / <span class="mono">gcs</span>: verificação somente leitura de existência e permissão de buckets.</li>
+          <li><span class="mono">tftp</span>: verificação de existência de arquivos, somente leitura.</li>
+          <li>Wordlist por arquivo ou stdin, threads, timeout, proxy, cabeçalhos, cookie e autenticação Basic; saída em texto ou JSONL.</li>
+        </ul>
+        <h4 class="sub">REQUISITOS E LIMITAÇÕES</h4>
+        <ul class="plain">
+          <li>Runtime KOF 0.5.0-beta; o código KOF é compilado e executado pelo runtime a cada chamada (não é um binário nativo), com JVM embutida na distribuição.</li>
+          <li>Linux com bash; macOS e Windows (WSL) ainda não testados.</li>
+          <li>Sem acesso aos cabeçalhos de resposta HTTP e sem seguir redirecionamentos; <span class="mono">tftp</span> sem IPv6 e sem upload.</li>
+        </ul>
+        <h4 class="sub">EXEMPLO DE USO</h4>
+        <div class="term"><button type="button" class="copy" data-target="cmd-koffuster" aria-label="Copiar comandos de Koffuster">Copiar</button><pre id="cmd-koffuster"><code>koffuster dir alvo.com.br wordlist.txt -x php,html -t 16 -s 200,301
+koffuster dns exemplo.com subdominios.txt --resolver https://dns.google/resolve
+koffuster fuzz "alvo.com/busca?q=FUZZ" payloads.txt -s 200
+koffuster s3 buckets.txt</code></pre></div>
+        <div class="links-row"><a class="btn btn-red" href="https://github.com/lunalully/koffuster" target="_blank" rel="noopener">Repositório e documentação</a></div>
+      </article>
+
+      <article class="case" id="nullvein" aria-labelledby="t-nullvein">
+        <div class="row">
+          <h3 id="t-nullvein">Nullvein SQL</h3>
+          <span class="tag">ANÁLISE DE SQL INJECTION</span>
+        </div>
+        <div class="meta"><span class="chip hot">Python 3.12+</span><span class="chip">CLI</span><span class="chip">NULLVEIN · SQL Injection Analysis Framework</span><span class="chip">v0.1</span></div>
+        <p>Framework modular em Python para análise e detecção de SQL Injection em ambientes
+        autorizados: laboratórios, aplicações próprias e pentests com permissão explícita. Tem motor de
+        detecção próprio (não é wrapper) e o objetivo é analisar, confirmar e documentar uma injeção com
+        evidências, sem extrair dados em massa.</p>
+        <h4 class="sub">IMPLEMENTADO NA v0.1</h4>
+        <ul class="plain">
+          <li>Descoberta de parâmetros GET a partir da URL alvo.</li>
+          <li>Baseline de respostas normais e motor de comparação de respostas.</li>
+          <li>Análise de injeção por erro (error-based) sobre parâmetros GET.</li>
+          <li>Fingerprint de SGBD por assinaturas de erro: MySQL, PostgreSQL, SQLite e MSSQL.</li>
+          <li>Pontuação de confiança de 0 a 100 (inconclusivo, suspeito, provável, confirmado).</li>
+          <li>Evidências em JSON, com mascaramento de credenciais; limite de taxa, concorrência e timeout.</li>
+        </ul>
+        <h4 class="sub">LIMITAÇÕES</h4>
+        <ul class="plain">
+          <li>Na v0.1 só a técnica error-based sobre GET está funcional; POST, boolean-based, time-based e UNION-based ainda não estão implementados.</li>
+          <li>Não é uma ferramenta de exploração nem de extração de dados.</li>
+          <li>Requer Python 3.12+; apenas em alvos autorizados.</li>
+        </ul>
+        <h4 class="sub">EXEMPLO DE USO</h4>
+        <div class="term"><button type="button" class="copy" data-target="cmd-nullvein" aria-label="Copiar comandos de Nullvein SQL">Copiar</button><pre id="cmd-nullvein"><code>git clone https://github.com/lunalully/Nullvein.git &amp;&amp; cd Nullvein
+python3 -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -e .
+nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
+        <div class="links-row"><a class="btn btn-red" href="https://github.com/lunalully/Nullvein" target="_blank" rel="noopener">Repositório e documentação</a></div>
+      </article>
+
     </div>
-
-    <p style="color:var(--gray); font-size:13px;">Repositório completo com os 22 achados, evidências
-    sanitizadas, diagramas e o relatório em PDF: <a href="https://github.com/lunalully/Cybersecurity-Portifolio" target="_blank" rel="noopener" style="color:var(--red)">github.com/lunalully/Cybersecurity-Portifolio</a></p>
   </div>
 </section>
 
 <!-- HABILIDADES -->
 <section id="habilidades">
   <div class="wrap">
-    <div class="kicker">03 // HABILIDADES</div>
-    <h2>Skills &amp; stack</h2>
+    <div class="kicker">04 // HABILIDADES</div>
+    <h2>Skills &amp; stack de trabalho</h2>
     <div class="skills">
       <div class="skillbox">
         <h4>SEGURANÇA OFENSIVA</h4>
-        <ul><li>Penetration Testing</li><li>API Security</li><li>Web App Security</li><li>Business Logic Testing</li><li>Race Conditions</li></ul>
+        <ul><li>Pentest Web/API</li><li>Autenticação e autorização</li><li>Lógica de negócio</li><li>Race conditions</li><li>Validação manual e reteste</li></ul>
+      </div>
+      <div class="skillbox">
+        <h4>SEGURANÇA DEFENSIVA</h4>
+        <ul><li>Monitoramento com Grafana e Suricata</li><li>Análise de logs no Dokploy</li><li>Hardening de SSH e Fail2Ban</li><li>Regras de firewall</li><li>Relatórios de incidentes</li></ul>
       </div>
       <div class="skillbox">
         <h4>AUTH &amp; CRIPTO</h4>
@@ -187,31 +389,52 @@ footer a{ color:var(--red); text-decoration:none; }
       </div>
       <div class="skillbox">
         <h4>ENTREGA</h4>
-        <ul><li>Relatórios executivos</li><li>Roadmap de remediação</li><li>Sanitização NDA</li><li>Documentação técnica</li></ul>
+        <ul><li>Relatórios técnicos e executivos</li><li>Recomendações priorizadas</li><li>Procedimentos reproduzíveis</li><li>Sanitização NDA</li></ul>
       </div>
     </div>
-    <h2 style="margin-top:48px; font-size:18px;">Ferramentas</h2>
+    <h2 style="margin-top:48px; font-size:18px;">Stack de trabalho</h2>
+    <p class="stack-label first">Ferramentas de terceiros que uso no dia a dia. Não são de minha autoria.</p>
     <div class="tools">
       <span class="tool">curl</span><span class="tool">OpenSSL</span><span class="tool">ffuf</span>
       <span class="tool">Nuclei</span><span class="tool">Burp Suite</span><span class="tool">JWT decoder</span>
-      <span class="tool">Linux / bash</span><span class="tool">Go</span><span class="tool">Postman</span>
+      <span class="tool">Postman</span><span class="tool">Grafana</span><span class="tool">Suricata</span>
+      <span class="tool">Dokploy</span><span class="tool">Fail2Ban</span><span class="tool">Linux / bash</span>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- CONTATO -->
 <footer id="contato">
   <div class="wrap">
-    <div class="kicker">04 // CONTATO</div>
+    <div class="kicker">05 // CONTATO</div>
     <p class="mono" style="color:var(--white); font-size:15px;">Interessado em segurança de aplicações?</p>
     <p style="margin-top:10px;">
-      
-      <a href="https://www.linkedin.com/in/luna-ferreira-reges-7b717642a/" target="_blank" rel="noopener">LinkedIn</a> · 
+      <a href="https://www.linkedin.com/in/luna-ferreira-reges-7b717642a/" target="_blank" rel="noopener">LinkedIn</a> ·
       <a href="https://github.com/lunalully" target="_blank" rel="noopener">GitHub</a>
     </p>
-    <p class="mono" style="margin-top:28px; font-size:11px; color:#5b5b66;">Luna_sec © 2026 · API Security · Pentest · AppSec</p>
+    <p class="mono" style="margin-top:28px; font-size:11px; color:#8a8a93;">Luna_sec © 2026 · Pentest Web/API · Segurança defensiva</p>
   </div>
 </footer>
 
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var el = document.getElementById(btn.getAttribute('data-target'));
+    var text = el.innerText.replace(/\s+$/,'');
+    function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copiar'; }, 1600); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){ done('Copiado'); }, function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      var r = document.createRange(); r.selectNodeContents(el);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      var ok = false; try { ok = document.execCommand('copy'); } catch(e) {}
+      sel.removeAllRanges(); done(ok ? 'Copiado' : 'Selecione e copie');
+    }
+  });
+});
+</script>
 </body>
 </html>
