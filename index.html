@@ -93,6 +93,10 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
 .note{ margin-top:18px; padding:14px 16px; border-left:3px solid var(--red); background:var(--panel2); font-size:13px; color:var(--gray2); }
 .note b{ color:var(--white); }
 .note ul{ margin:8px 0 0 18px; }
+.crit{ margin:16px 0 20px; padding:18px 20px; border:1px solid var(--red); border-left:4px solid var(--red); border-radius:6px; background:var(--panel2); box-shadow:0 0 0 1px rgba(255,42,77,.12), 0 8px 26px rgba(255,42,77,.08); }
+.crit .badge{ display:inline-block; font-family:'DejaVu Sans Mono',monospace; font-size:10.5px; letter-spacing:2px; color:#fff; background:var(--red); padding:4px 11px; border-radius:3px; }
+.crit h5{ font-family:'DejaVu Sans Mono',monospace; color:var(--white); font-size:15.5px; letter-spacing:.5px; margin:12px 0 7px; }
+.crit p{ color:var(--gray2); font-size:13.5px; margin:0; }
 .case h4.sub{ font-family:'DejaVu Sans Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--red); margin-top:22px; }
 .case ul.plain{ margin:8px 0 0 18px; font-size:13.5px; color:#c9c9d0; }
 .case ul.plain li{ padding:2px 0; }
@@ -185,7 +189,22 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
       profissional; evidências, logs e dados operacionais não são divulgados.</p>
 
       <h4 class="sub">FRENTE OFENSIVA</h4>
+
+      <div class="crit">
+        <span class="badge">● ACHADO CRÍTICO</span>
+        <h5>Falha crítica de isolamento entre restaurantes (multi-tenant)</h5>
+        <p>Identifiquei uma falha crítica de isolamento multi-tenant em que alterações realizadas em um
+        restaurante eram refletidas em outro estabelecimento distinto. O comportamento indicava quebra de
+        segregação entre tenants e risco de alteração indevida de dados entre contas diferentes.</p>
+      </div>
+
       <ul class="highlights">
+        <li><b style="color:var(--white)">Controle de acesso entre lojas (possível Broken Access Control / IDOR):</b>
+        identifiquei que era possível alterar manualmente o identificador de uma loja na URL e acessar outro
+        restaurante — comportamento posteriormente confirmado pela equipe como não esperado.</li>
+        <li><b style="color:var(--white)">Cadastro sem validação adequada:</b> a plataforma permitia a criação
+        de contas utilizando CNPJ, telefone e e-mails sem validação adequada, inclusive com domínios
+        arbitrários, possibilitando cadastros falsos e abuso do fluxo de onboarding.</li>
         <li>Avaliei <b style="color:var(--white)">aproximadamente 130 rotas</b> da API com perfis de
         cliente, estabelecimento e administrador, verificando autenticação, autorização e isolamento
         de dados.</li>
