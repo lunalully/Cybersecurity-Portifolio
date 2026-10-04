@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Luna Ferreira Reges · Pentester Web/API e Analista de Segurança (SOC)</title>
-<meta name="description" content="Luna Ferreira Reges, Pentester Web/API e Analista de Segurança (SOC) no projeto Cardapya. Pentests em aplicações web e APIs, monitoramento defensivo e três ferramentas autorais: Lunatic, Koffuster e Nullvein SQL.">
+<meta name="description" content="Luna Ferreira Reges, Pentester Web/API e Analista de Segurança (SOC) no projeto Cardapya. Pentests em aplicações web e APIs, monitoramento defensivo e três ferramentas autorais: Lunatic, Koffuster e Nullvein SQL. Stack com Burp Suite, OWASP ZAP, Nmap, Nuclei, SQLMap, Metasploit, Wireshark, Suricata e Grafana; linguagens Python, Go, KOF, Assembly e C.">
 <style>
 :root{
   --bg:#0b0b0e; --panel:#141418; --panel2:#1a1a20; --line:#26262d;
@@ -73,6 +73,8 @@ h2 .num{ color:var(--red); }
 .tools{ display:flex; gap:10px; flex-wrap:wrap; }
 .tool{ font-family:'DejaVu Sans Mono',monospace; font-size:12.5px; border:1px solid var(--line); color:var(--gray2); padding:8px 14px; border-radius:20px; }
 .tool:hover{ border-color:var(--red); color:var(--red); }
+.tool.mine{ border-color:var(--red); color:var(--red); }
+.tool.mine::after{ content:"autoral"; font-size:9px; letter-spacing:1px; margin-left:7px; padding:1px 5px; border:1px solid var(--red); border-radius:10px; vertical-align:middle; }
 
 /* ---------- FOOTER ---------- */
 footer{ padding:48px 0; text-align:center; }
@@ -405,12 +407,20 @@ nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
       </div>
     </div>
     <h2 style="margin-top:48px; font-size:18px;">Stack de trabalho</h2>
-    <p class="stack-label first">Ferramentas de terceiros que uso no dia a dia. Não são de minha autoria.</p>
+    <p class="stack-label first">Ferramentas que uso no dia a dia. Lunatic e Koffuster são de minha autoria; as demais são de terceiros.</p>
     <div class="tools">
-      <span class="tool">curl</span><span class="tool">OpenSSL</span><span class="tool">ffuf</span>
-      <span class="tool">Nuclei</span><span class="tool">Burp Suite</span><span class="tool">JWT decoder</span>
-      <span class="tool">Postman</span><span class="tool">Grafana</span><span class="tool">Suricata</span>
-      <span class="tool">Dokploy</span><span class="tool">Fail2Ban</span><span class="tool">Linux / bash</span>
+      <span class="tool mine" title="Ferramenta autoral">Lunatic</span><span class="tool mine" title="Ferramenta autoral">Koffuster</span>
+      <span class="tool">Burp Suite</span><span class="tool">OWASP ZAP</span><span class="tool">Nmap</span>
+      <span class="tool">ffuf</span><span class="tool">Gobuster</span><span class="tool">HTTPX</span>
+      <span class="tool">Katana</span><span class="tool">Nuclei</span><span class="tool">OpenVAS</span>
+      <span class="tool">SQLMap</span><span class="tool">Metasploit</span><span class="tool">Hashcat</span>
+      <span class="tool">Wireshark</span><span class="tool">Suricata</span><span class="tool">Grafana</span>
+    </div>
+    <h2 style="margin-top:44px; font-size:18px;">Linguagens</h2>
+    <p class="stack-label first">Linguagens de programação que uso.</p>
+    <div class="tools">
+      <span class="tool">Python</span><span class="tool">Go</span><span class="tool">KOF</span>
+      <span class="tool">Assembly</span><span class="tool">C</span>
     </div>
   </div>
 </section>
