@@ -263,9 +263,10 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
       evidências sanitizadas, diagramas e roadmap de hardening. Todos os dados do cliente, hostnames,
       identificadores e segredos foram removidos; o relatório original é confidencial.</p>
       <ul class="highlights">
+        <li><b style="color:var(--red)">Adendo de reavaliação (out/2026):</b> achado <b style="color:var(--white)">CRÍTICO</b> de isolamento multi-tenant entre restaurantes, além de Broken Access Control / IDOR entre lojas e cadastro sem validação adequada — acrescentados ao relatório sem alterar os achados anteriores.</li>
         <li><b style="color:var(--white)">Dois achados HIGH de lógica de negócio</b> (regras de negócio ausentes, não bugs de framework): escalada vertical de privilégio no auto-registro de loja (CVSS 8.8) e duplicação massiva de cadastro — CNPJ — sob requisições paralelas (CVSS 8.1).</li>
         <li><b style="color:var(--white)">OWASP Top 10 (2021): 10/10 categorias exercidas</b> no escopo do assessment; autenticação, RBAC, upload e CORS atacados ativamente e validados.</li>
-        <li><b style="color:var(--white)">Entrega:</b> relatório de 25 páginas, 22 achados mapeados em CVSS/CWE/OWASP/ATT&amp;CK e roadmap de hardening — tudo sanitizado, sem expor o cliente.</li>
+        <li><b style="color:var(--white)">Entrega:</b> relatório de 28 páginas (edição original de 25 páginas + adendo de reavaliação), 22 achados mapeados em CVSS/CWE/OWASP/ATT&amp;CK e roadmap de hardening — tudo sanitizado, sem expor o cliente.</li>
       </ul>
       <div class="kpis">
         <div class="kpi"><div class="v">0</div><div class="l">Críticos</div></div>
@@ -275,7 +276,7 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
         <div class="kpi"><div class="v">9</div><div class="l">Info</div></div>
       </div>
       <div class="links-row">
-        <a class="btn btn-red" href="api-security-assessment-sanitized/report.pdf">Relatório sanitizado — 25 páginas (PDF)</a>
+        <a class="btn btn-red" href="api-security-assessment-sanitized/report.pdf">Relatório sanitizado — 28 páginas (PDF)</a>
         <a class="btn btn-ghost" href="api-security-assessment-sanitized/README.md">Resumo e metodologia</a>
         <a class="btn btn-ghost" href="https://github.com/lunalully/Cybersecurity-Portifolio" target="_blank" rel="noopener">Repositório no GitHub</a>
       </div>

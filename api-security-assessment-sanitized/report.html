@@ -68,6 +68,7 @@ p{ margin-bottom:3mm; }
 .sev-high{ background:#ff2a4d; color:#ffffff; } .sev-medium{ background:#e9a319; color:#0d0d0f; }
 .sev-low{ background:#2d6a4f; color:#ffffff; } .sev-info{ background:#5b5b66; color:#ffffff; }
 .sev-pass{ background:#2d6a4f; color:#ffffff; }
+.sev-crit{ background:#7f0000; color:#ffffff; }
 
 /* ---------- TABLES ---------- */
 table{ width:100%; border-collapse:collapse; font-size:8.5pt; }
@@ -861,6 +862,93 @@ GET /cuisines  no header                                 → 200 (same)</pre>
   <p class="center mono white" style="margin-top:8mm">— FIM DO RELATÓRIO —</p>
   <p class="center tiny gray">Relatório de Avaliação de Segurança · Edição Pública de Portfólio · Versão 1.0 · 2026-08-29<br>
   Sanitizado para distribuição pública · O relatório original permanece confidencial</p>
+</div>
+
+
+<!-- ============ ADENDO A : REAVALIAÇÃO ============ -->
+<div class="page page-content" id="sec-addendum">
+  <h2><span class="num">A</span> / ADENDO DE REAVALIAÇÃO</h2>
+  <div class="sectionbar"></div>
+  <p style="margin:4mm 0 3mm">Este adendo acrescenta achados identificados em reavaliação posterior
+  (outubro de 2026). Ele <b class="white">complementa</b> o relatório v1.0 e <b class="white">não altera</b>
+  os achados nem as classificações das páginas anteriores. As classificações marcadas como
+  &ldquo;preliminar&rdquo; ainda estão em consolidação e não reaproveitam o CVSS do relatório original.</p>
+
+  <div class="fcard" style="margin-top:4mm">
+    <div class="fh"><div class="ft">F-23 · Isolamento Multi-Tenant Quebrado</div><div class="fn">F-23</div></div>
+    <span class="sev sev-crit">CRÍTICO</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">Classificação</div><div class="val">Crítico (reportado na reavaliação)</div></div>
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A01 — Broken Access Control</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Identifiquei uma falha crítica de isolamento multi-tenant em que alterações realizadas em um
+    restaurante eram refletidas em outro estabelecimento distinto. O comportamento indicava quebra de
+    segregação entre tenants e risco de alteração indevida de dados entre contas diferentes.</p>
+    <h3>Impacto</h3>
+    <p>Quebra de segregação entre tenants: alterações feitas no contexto de um estabelecimento podem
+    atingir dados de outra conta, com risco de modificação indevida de informações entre restaurantes
+    distintos e perda de integridade e confiança na separação entre contas.</p>
+    <h3>Evidência</h3>
+    <pre>Evidência sanitizada — detalhes técnicos omitidos na edição pública.</pre>
+    <h3>Remediação</h3>
+    <p>Garantir escopo de tenant em todas as operações de escrita e leitura, com verificação de
+    propriedade no servidor para cada recurso acessado; adicionar testes de regressão que afirmem o
+    isolamento entre estabelecimentos distintos.</p>
+  </div>
+</div>
+
+<!-- ============ ADENDO A : F-24 ============ -->
+<div class="page page-content" id="sec-f24">
+  <h2><span class="num">A</span> / ADENDO DE REAVALIAÇÃO</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-24 · Controle de Acesso entre Lojas (BAC / IDOR)</div><div class="fn">F-24</div></div>
+    <span class="sev sev-high">ALTO (PRELIMINAR)</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">Classificação</div><div class="val">Preliminar (reavaliação)</div></div>
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A01 — Broken Access Control</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Identifiquei que era possível alterar manualmente o identificador de uma loja na URL e acessar
+    outro restaurante, comportamento posteriormente confirmado pela equipe como não esperado. O achado
+    foi tratado como Broken Access Control / IDOR.</p>
+    <h3>Impacto</h3>
+    <p>Acesso indevido a outro estabelecimento por manipulação direta do identificador, indicando
+    verificação de autorização insuficiente no nível do objeto (BOLA/IDOR) entre lojas.</p>
+    <h3>Evidência</h3>
+    <pre>Evidência sanitizada — detalhes técnicos omitidos na edição pública.</pre>
+    <h3>Remediação</h3>
+    <p>Validar, no servidor, se o recurso solicitado pertence ao tenant/loja do usuário autenticado
+    antes de responder; evitar identificadores sequenciais previsíveis e cobrir o caso com teste de
+    autorização negativa.</p>
+  </div>
+</div>
+
+<!-- ============ ADENDO A : F-25 ============ -->
+<div class="page page-content" id="sec-f25">
+  <h2><span class="num">A</span> / ADENDO DE REAVALIAÇÃO</h2>
+  <div class="sectionbar"></div>
+  <div class="fcard">
+    <div class="fh"><div class="ft">F-25 · Cadastro sem Validação Adequada</div><div class="fn">F-25</div></div>
+    <span class="sev sev-medium">MÉDIO (PRELIMINAR)</span>
+    <div class="metarow">
+      <div class="metabox"><div class="k">Classificação</div><div class="val">Preliminar (reavaliação)</div></div>
+      <div class="metabox"><div class="k">OWASP 2021</div><div class="val">A04 — Insecure Design</div></div>
+    </div>
+    <h3>Descrição</h3>
+    <p>Identifiquei que a plataforma permitia a criação de contas utilizando CNPJ, telefone e e-mails
+    sem validação adequada, inclusive com domínios arbitrários, possibilitando cadastros falsos e abuso
+    do fluxo de onboarding.</p>
+    <h3>Impacto</h3>
+    <p>Criação de cadastros falsos e abuso do fluxo de onboarding, com inchaço da base, dados não
+    confiáveis e abertura para fraude no cadastro de contas e estabelecimentos.</p>
+    <h3>Evidência</h3>
+    <pre>Evidência sanitizada — detalhes técnicos omitidos na edição pública.</pre>
+    <h3>Remediação</h3>
+    <p>Validar CNPJ, telefone e e-mail (formato e domínio) no onboarding, com verificação de posse
+    (confirmação de e-mail/telefone) e controles anti-abuso no fluxo de criação de contas.</p>
+  </div>
 </div>
 
 </body>
