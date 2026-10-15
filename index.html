@@ -114,6 +114,49 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
 .stack-label{ font-size:12px; color:var(--gray); margin:0 0 14px; }
 .stack-label.first{ margin-top:0; }
 @media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } .case{ padding:22px; } .hero{ padding:80px 0 60px; } }
+/* RADIO LUNATIC */
+.radio-wrap{ position:fixed; right:16px; bottom:16px; z-index:90; display:flex; flex-direction:column; align-items:flex-end; gap:8px; font-family:'DejaVu Sans Mono','DejaVu Sans',monospace; max-width:calc(100vw - 32px); }
+.radio-launcher{ background:linear-gradient(180deg,var(--panel2),var(--panel)); color:var(--white); border:1px solid var(--red); border-radius:0; padding:9px 14px 9px 12px; font:inherit; font-size:12px; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; display:inline-flex; align-items:center; gap:10px; box-shadow:0 0 0 1px rgba(255,42,77,.18), 0 0 14px rgba(255,42,77,.28), 0 6px 18px rgba(0,0,0,.55); transition:box-shadow .2s, border-color .2s, background .2s; }
+.radio-launcher:hover{ background:var(--panel2); border-color:var(--red); box-shadow:0 0 0 1px rgba(255,42,77,.4), 0 0 22px rgba(255,42,77,.45), 0 6px 18px rgba(0,0,0,.55); }
+.radio-launcher:focus-visible, .radio-toggle:focus-visible, .radio-min:focus-visible, .radio-vol:focus-visible, .radio-mute:focus-visible{ outline:2px solid var(--red); outline-offset:2px; }
+.radio-eq{ display:inline-flex; align-items:flex-end; gap:2px; height:14px; width:14px; }
+.radio-eq i{ display:block; width:3px; height:30%; background:var(--red); transform-origin:bottom; }
+.radio-eq i:nth-child(2){ height:60%; } .radio-eq i:nth-child(3){ height:45%; }
+.radio-wrap.is-playing .radio-eq i{ animation:radioEq 0.9s ease-in-out infinite; height:100%; transform:scaleY(.3); }
+.radio-wrap.is-playing .radio-eq i:nth-child(2){ animation-delay:-.3s; animation-duration:.75s; }
+.radio-wrap.is-playing .radio-eq i:nth-child(3){ animation-delay:-.6s; animation-duration:1.1s; }
+@keyframes radioEq{ 0%,100%{ transform:scaleY(.25); } 50%{ transform:scaleY(1); } }
+.radio-label small{ color:var(--red); margin-left:6px; font-size:10px; letter-spacing:.1em; }
+.radio-panel{ width:312px; max-width:100%; background:var(--panel); border:1px solid var(--line); border-top:2px solid var(--red); padding:12px; box-shadow:0 10px 28px rgba(0,0,0,.6); }
+.radio-wrap:not(.is-open) .radio-panel{ visibility:hidden; height:0; padding:0; border:0; overflow:hidden; box-shadow:none; }
+.radio-head{ display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; }
+.radio-title{ font-size:12px; color:var(--red); letter-spacing:.08em; }
+.radio-min{ background:transparent; color:var(--gray2); border:1px solid var(--line); font:inherit; font-size:12px; padding:2px 8px; cursor:pointer; }
+.radio-min:hover{ color:var(--white); border-color:var(--red); }
+/* player do YouTube oculto, mas renderizado (NAO display:none) para o audio seguir tocando */
+.radio-video{ position:absolute; left:-9999px; top:0; width:200px; height:113px; opacity:0; overflow:hidden; pointer-events:none; }
+.radio-video iframe{ width:200px; height:113px; border:0; }
+.radio-vol-row{ display:flex; align-items:center; gap:8px; margin-top:12px; font-size:11px; color:var(--gray2); }
+.radio-vol-row label{ letter-spacing:.08em; text-transform:uppercase; }
+.radio-mute{ background:transparent; color:var(--gray2); border:1px solid var(--line); font:inherit; font-size:11px; padding:2px 6px; cursor:pointer; }
+.radio-mute:hover{ color:var(--white); border-color:var(--red); }
+.radio-vol-val{ min-width:3ch; text-align:right; color:var(--white); }
+.radio-vol{ -webkit-appearance:none; appearance:none; flex:1; min-width:0; height:18px; background:transparent; cursor:pointer; --pct:60%; }
+.radio-vol::-webkit-slider-runnable-track{ height:4px; background:linear-gradient(90deg,var(--red) var(--pct),var(--line) var(--pct)); }
+.radio-vol::-moz-range-track{ height:4px; background:var(--line); }
+.radio-vol::-moz-range-progress{ height:4px; background:var(--red); }
+.radio-vol::-webkit-slider-thumb{ -webkit-appearance:none; width:12px; height:12px; margin-top:-4px; background:var(--white); border:2px solid var(--red); border-radius:0; box-shadow:0 0 8px rgba(255,42,77,.6); }
+.radio-vol::-moz-range-thumb{ width:8px; height:8px; background:var(--white); border:2px solid var(--red); border-radius:0; box-shadow:0 0 8px rgba(255,42,77,.6); }
+.radio-track{ margin-top:0; font-size:12px; color:#d7d7dc; line-height:1.5; }
+.radio-credit{ font-size:11px; color:var(--gray); }
+.radio-actions{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.radio-toggle{ background:var(--red2); color:var(--white); border:1px solid var(--red); font:inherit; font-size:12px; padding:5px 12px; cursor:pointer; }
+.radio-toggle:hover{ background:var(--red); }
+.radio-toggle[disabled]{ opacity:.5; cursor:default; }
+.radio-link{ font-size:12px; color:var(--red); }
+.radio-fallback{ padding:10px 0 0; font-size:12px; color:var(--gray2); }
+@media(max-width:640px){ .radio-wrap{ right:10px; bottom:10px; } .radio-panel{ width:260px; } .radio-launcher{ padding:7px 10px; font-size:11px; } }
+@media (prefers-reduced-motion:reduce){ .radio-wrap.is-playing .radio-launcher .radio-dot{ animation:none; } .radio-wrap.is-playing .radio-eq i{ animation:none; transform:scaleY(.7); } .radio-launcher{ transition:none; } }
 </style>
 </head>
 <body>
@@ -586,6 +629,126 @@ document.querySelectorAll('.copy').forEach(function(btn){
     }
   });
 });
+</script>
+<div class="radio-wrap" id="radio" role="region" aria-label="Rádio Lunatic, player de música">
+  <div class="radio-panel" id="radio-panel">
+    <div class="radio-head">
+      <span class="radio-title">RÁDIO LUNATIC</span>
+      <button type="button" class="radio-min" id="radio-min" aria-label="Minimizar painel da rádio (a música continua tocando)">_ minimizar</button>
+    </div>
+    <div class="radio-msg" id="radio-msg" role="status" aria-live="polite"></div>
+    <p class="radio-track">RITUAL OF DECAY, death metal (instrumental)<br><span class="radio-credit">Crédito: AIron Metal Music</span></p>
+    <div class="radio-vol-row">
+      <button type="button" class="radio-mute" id="radio-mute" aria-label="Silenciar" aria-pressed="false" disabled>&#9835;</button>
+      <label for="radio-vol">Volume</label>
+      <input type="range" class="radio-vol" id="radio-vol" min="0" max="100" step="1" value="60" aria-label="Volume" disabled>
+      <span class="radio-vol-val" id="radio-vol-val" aria-hidden="true">60</span>
+    </div>
+    <div class="radio-actions">
+      <button type="button" class="radio-toggle" id="radio-toggle" disabled aria-label="Tocar ou pausar">Pausar</button>
+      <a class="radio-link" href="https://www.youtube.com/watch?v=IjN4XrJcWXY" target="_blank" rel="noopener">ouvir no YouTube</a>
+    </div>
+  </div>
+  <div class="radio-video" id="radio-video" aria-hidden="true"><div id="radio-player"></div></div>
+  <button type="button" class="radio-launcher" id="radio-launcher" aria-label="Abrir Rádio Lunatic" aria-expanded="false" aria-controls="radio-panel"><span class="radio-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="radio-label" id="radio-label">RÁDIO LUNATIC</span></button>
+</div>
+
+<script>
+(function(){
+  try {
+    var VID = 'IjN4XrJcWXY';
+    var wrap = document.getElementById('radio');
+    var launcher = document.getElementById('radio-launcher');
+    var minBtn = document.getElementById('radio-min');
+    var toggle = document.getElementById('radio-toggle');
+    var msg = document.getElementById('radio-msg');
+    var vol = document.getElementById('radio-vol');
+    var volVal = document.getElementById('radio-vol-val');
+    var muteBtn = document.getElementById('radio-mute');
+    var muted = false;
+    var player = null, started = false, playing = false;
+
+    function setOpen(open){
+      wrap.classList.toggle('is-open', open);
+      launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
+      launcher.setAttribute('aria-label', open ? 'Recolher Rádio Lunatic' : 'Abrir Rádio Lunatic');
+    }
+    function setPlaying(p){
+      playing = p;
+      wrap.classList.toggle('is-playing', p);
+      toggle.textContent = p ? 'Pausar' : 'Tocar';
+    }
+    function fallback(){
+      try {
+        msg.innerHTML = '<div class="radio-fallback">Não foi possível carregar o player. Use o link "ouvir no YouTube" abaixo.</div>';
+        toggle.disabled = true; vol.disabled = true; muteBtn.disabled = true;
+      } catch(e) {}
+    }
+    function applyVol(v){
+      try {
+        v = Math.max(0, Math.min(100, parseInt(v, 10) || 0));
+        vol.value = v; volVal.textContent = v;
+        vol.style.setProperty('--pct', v + '%');
+        if (player && player.setVolume) { player.setVolume(v); if (v > 0 && player.isMuted && player.isMuted()) player.unMute(); }
+        if (v > 0) setMuted(false);
+      } catch(e) {}
+    }
+    function setMuted(m){
+      muted = m;
+      muteBtn.setAttribute('aria-pressed', m ? 'true' : 'false');
+      muteBtn.setAttribute('aria-label', m ? 'Ativar som' : 'Silenciar');
+      muteBtn.innerHTML = m ? '&#215;' : '&#9835;';
+    }
+    function createPlayer(){
+      try {
+        player = new YT.Player('radio-player', {
+          host: 'https://www.youtube-nocookie.com',
+          videoId: VID,
+          width: '200', height: '113',
+          playerVars: { autoplay: 1, loop: 1, playlist: VID, playsinline: 1, rel: 0, modestbranding: 1 },
+          events: {
+            onReady: function(e){ try { toggle.disabled = false; vol.disabled = false; muteBtn.disabled = false; e.target.unMute(); applyVol(60); e.target.playVideo(); } catch(err) { fallback(); } },
+            onStateChange: function(e){ try { setPlaying(e.data === 1 || e.data === 3); } catch(err) {} },
+            onError: function(){ fallback(); }
+          }
+        });
+      } catch(err) { fallback(); }
+    }
+    function loadApi(){
+      try {
+        var prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function(){ try { if (typeof prev === 'function') prev(); } catch(e) {} createPlayer(); };
+        var s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        s.async = true;
+        s.onerror = fallback;
+        document.head.appendChild(s);
+      } catch(err) { fallback(); }
+    }
+
+    launcher.addEventListener('click', function(){
+      try {
+        var open = !wrap.classList.contains('is-open');
+        setOpen(open);
+        if (open && !started) { started = true; loadApi(); }
+      } catch(err) {}
+    });
+    vol.addEventListener('input', function(){ applyVol(vol.value); });
+    muteBtn.addEventListener('click', function(){
+      try {
+        if (!player) return;
+        if (muted) { player.unMute(); setMuted(false); } else { player.mute(); setMuted(true); }
+      } catch(err) {}
+    });
+    minBtn.addEventListener('click', function(){ try { setOpen(false); launcher.focus(); } catch(err) {} });
+    toggle.addEventListener('click', function(){
+      try {
+        if (!player || !player.playVideo) return;
+        if (playing) { player.pauseVideo(); } else { player.playVideo(); }
+      } catch(err) {}
+    });
+  } catch(err) {}
+})();
 </script>
 </body>
 </html>
