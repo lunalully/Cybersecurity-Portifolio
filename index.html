@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Luna Ferreira Reges · Pentester Web/API e Analista de Segurança (SOC)</title>
-<meta name="description" content="Luna Ferreira Reges, Pentester Web/API e Analista de Segurança (SOC) no projeto Cardapya. Pentests em aplicações web e APIs, monitoramento defensivo e três ferramentas autorais: Lunatic, Koffuster e Nullvein SQL. Stack com Burp Suite, OWASP ZAP, Nmap, Nuclei, SQLMap, Metasploit, Wireshark, Suricata e Grafana; linguagens Python, Go, KOF, Assembly e C.">
+<meta name="description" content="Luna Ferreira Reges, Pentester Web/API e Analista de Segurança (SOC) no projeto Cardapya. Pentests em aplicações web e APIs, monitoramento defensivo e quatro ferramentas autorais: Lunatic, Koffuster, Nullvein SQL e Lubash. Stack com Burp Suite, OWASP ZAP, Nmap, Nuclei, SQLMap, Metasploit, Wireshark, Suricata e Grafana; linguagens Python, Go, KOF, Assembly e C.">
 <style>
 :root{
   --bg:#0b0b0e; --panel:#141418; --panel2:#1a1a20; --line:#26262d;
@@ -170,6 +170,7 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
       <a href="#cardapya">Cardapya</a>
       <a href="#hermess">Hermess</a>
 <a href="#enois">É nois</a>
+<a href="#temmcode">TEMM CODE</a>
       <a href="#ferramentas">Ferramentas</a>
       <a href="#habilidades">Stack</a>
       <a href="#contato">Contato</a>
@@ -185,7 +186,7 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
     <h1>Luna Ferreira Reges<br>Eu encontro o que<br>os scanners <span class="accent">não encontram</span>.</h1>
     <p class="sub">Responsável pela segurança do projeto Cardapya, com atuação ofensiva e defensiva
     sobre a aplicação web e as APIs da plataforma: pentest Web/API, monitoramento de eventos
-    suspeitos, relatórios técnicos e três ferramentas autorais.</p>
+    suspeitos, relatórios técnicos e quatro ferramentas autorais.</p>
     <div class="cta">
       <a class="btn btn-red" href="#cardapya">Ver o trabalho na Cardapya</a>
       <a class="btn btn-ghost" href="#ferramentas">Ver ferramentas autorais</a>
@@ -433,12 +434,69 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
   </div>
 </section>
 
+<!-- TEMM CODE -->
+<section id="temmcode">
+  <div class="wrap">
+    <div class="kicker">05 // CASE</div>
+    <h2>TEMM CODE · Consultoria em Setor Financeiro</h2>
+
+    <div class="case">
+      <div class="row">
+        <h3>TEMM CODE · Consultoria em Setor Financeiro</h3>
+        <span class="tag">CONSULTORIA · SETOR FINANCEIRO</span>
+      </div>
+      <p class="stack-label">Consultoria de segurança para uma aplicação do setor financeiro.</p>
+      <p>Identificação e classificação de vulnerabilidades por severidade em uma aplicação do setor financeiro.</p>
+
+      <div class="kpis">
+        <div class="kpi"><div class="v">8</div><div class="l">Altas</div></div>
+        <div class="kpi"><div class="v">11</div><div class="l">Médias</div></div>
+        <div class="kpi"><div class="v">3</div><div class="l">Baixas</div></div>
+      </div>
+
+      <h4 class="sub">VULNERABILIDADES ALTAS</h4>
+      <ul class="highlights">
+        <li>Escrita de arquivos de dados não atômica, com risco de corrupção em caso de interrupção.</li>
+        <li>Atualização de séries de mercado pode sobrescrever dados recentes com informações incompletas.</li>
+        <li>Documentos armazenados sem criptografia em repouso.</li>
+        <li>Portal do cliente sem autenticação de dois fatores (2FA).</li>
+        <li>Arquivos de chaves de sessão e segredos de segundo fator com permissões excessivas (<span class="mono">0644</span>).</li>
+        <li>Endpoint de health check executa verificações custosas sem cache, podendo degradar o desempenho.</li>
+        <li>Inconsistências de fuso horário nos registros de auditoria.</li>
+        <li>Token de convite exposto na URL, com possível registro em logs e histórico do navegador.</li>
+      </ul>
+
+      <h4 class="sub">VULNERABILIDADES MÉDIAS</h4>
+      <ul class="highlights">
+        <li>Rotinas estatísticas não tratam adequadamente meses inválidos e arquivos CSV corrompidos.</li>
+        <li>Endpoint de contato permite gravações com origem não aprovada e possui limitações insuficientes contra requisições volumosas.</li>
+        <li>Fluxo de contato realiza gravações em transações separadas, podendo gerar registros incompletos.</li>
+        <li>Ausência de token CSRF no login interno e validação permissiva em uma rota de conformidade.</li>
+        <li>Script de atualização falha quando executado pela segunda vez.</li>
+        <li>Inicialização do banco de dados pode ocultar erros e deixar o esquema incompleto.</li>
+        <li>Configuração e acesso ao banco de dados excessivamente centralizados, dificultando manutenção.</li>
+        <li>Limitação de tentativas de login baseada apenas na memória do processo.</li>
+        <li>Validação insuficiente de endereços de e-mail.</li>
+        <li>Política CSP configurada em modo de relatório, sem aplicação efetiva.</li>
+        <li>Cache de pré-visualização de assinaturas sem bloqueio de concorrência.</li>
+      </ul>
+
+      <h4 class="sub">VULNERABILIDADES BAIXAS</h4>
+      <ul class="highlights">
+        <li>Cookie de sessão sem prefixo <span class="mono">__Host-</span> e sem expiração explícita visível.</li>
+        <li>Cookie de exclusão de métricas pode ser definido por qualquer visitante.</li>
+        <li>Proteção contra repetição de MFA depende da memória do processo e usa comparação não constante no tempo.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- FERRAMENTAS -->
 <section id="ferramentas">
   <div class="wrap">
-    <div class="kicker">05 // FERRAMENTAS AUTORAIS</div>
+    <div class="kicker">06 // FERRAMENTAS AUTORAIS</div>
     <h2>Ferramentas que eu desenvolvo</h2>
-    <p class="sec-intro">Três ferramentas de linha de comando de minha autoria, cada uma com um papel
+    <p class="sec-intro">Quatro ferramentas de linha de comando de minha autoria, cada uma com um papel
     distinto. Todas são para uso apenas em alvos com autorização. Descrições conforme o README de cada
     repositório.</p>
 
@@ -544,6 +602,42 @@ nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
         <div class="links-row"><a class="btn btn-red" href="https://github.com/lunalully/Nullvein" target="_blank" rel="noopener">Repositório e documentação</a></div>
       </article>
 
+      <article class="case" id="lubash" aria-labelledby="t-lubash">
+        <div class="row">
+          <h3 id="t-lubash">Lubash</h3>
+          <span class="tag">RECONHECIMENTO · OSINT</span>
+        </div>
+        <div class="meta"><span class="chip hot">Bash + Python 3</span><span class="chip">CLI</span><span class="chip">Licença AGPLv3</span><span class="chip">v1.1</span></div>
+        <p>Ferramenta de reconhecimento (OSINT) em Bash, com apoio de Python, que automatiza a
+        identificação e o download de arquivos públicos indexados por mecanismos de busca usando Google
+        Dorks (operadores <span class="mono">site:</span> e <span class="mono">filetype:</span>). Consulta
+        primeiro o Google e, como alternativa, Bing RSS e DuckDuckGo. Não explora vulnerabilidades, não
+        realiza autenticação e não contorna CAPTCHA.</p>
+        <h4 class="sub">FUNCIONALIDADES</h4>
+        <ul class="plain">
+          <li>Busca interativa por domínio e extensão, montando a consulta <span class="mono">site:dominio filetype:ext</span>.</li>
+          <li>Consultas ao Google, Bing RSS e DuckDuckGo, com tratamento de links de redirecionamento.</li>
+          <li>Filtragem por domínio e subdomínios e remoção de URLs duplicadas.</li>
+          <li>Download automatizado via Wget, com organização por domínio e extensão em <span class="mono">Lubash_Resultados/</span>.</li>
+          <li>Registro de links encontrados e de falhas, além de arquivos de diagnóstico das respostas dos buscadores.</li>
+          <li>Importação de URLs a partir de arquivos HTML ou TXT quando a busca automática não retorna resultados.</li>
+          <li>Suporte a vários formatos: PDF, DOC, DOCX, TXT, RTF, ODT, XLS, XLSX, CSV, ODS, PPT, PPTX, JSON, XML e ZIP.</li>
+        </ul>
+        <h4 class="sub">REQUISITOS E LIMITAÇÕES</h4>
+        <ul class="plain">
+          <li>Linux; dependências: Bash, Python 3 e Wget.</li>
+          <li>Os resultados dependem dos mecanismos de busca: CAPTCHA, bloqueios HTTP e limites de tráfego podem impedir consultas.</li>
+          <li>Nem todo arquivo listado é baixado com sucesso, e arquivos não indexados podem não ser encontrados.</li>
+          <li>Não contorna CAPTCHA; uso apenas em ambientes autorizados.</li>
+        </ul>
+        <h4 class="sub">EXEMPLO DE USO</h4>
+        <div class="term"><button type="button" class="copy" data-target="cmd-lubash" aria-label="Copiar comandos de Lubash">Copiar</button><pre id="cmd-lubash"><code>git clone https://github.com/lunalully/Lubash.git
+cd Lubash
+chmod +x lubash.sh
+./lubash.sh</code></pre></div>
+        <div class="links-row"><a class="btn btn-red" href="https://github.com/lunalully/Lubash" target="_blank" rel="noopener">Repositório e documentação</a></div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -551,7 +645,7 @@ nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
 <!-- HABILIDADES -->
 <section id="habilidades">
   <div class="wrap">
-    <div class="kicker">06 // HABILIDADES</div>
+    <div class="kicker">07 // HABILIDADES</div>
     <h2>Skills &amp; stack de trabalho</h2>
     <div class="skills">
       <div class="skillbox">
@@ -576,9 +670,9 @@ nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
       </div>
     </div>
     <h2 style="margin-top:48px; font-size:18px;">Stack de trabalho</h2>
-    <p class="stack-label first">Ferramentas que uso no dia a dia. Lunatic, Koffuster e Nullvein SQL são de minha autoria; as demais são de terceiros.</p>
+    <p class="stack-label first">Ferramentas que uso no dia a dia. Lunatic, Koffuster, Nullvein SQL e Lubash são de minha autoria; as demais são de terceiros.</p>
     <div class="tools">
-      <span class="tool mine" title="Ferramenta autoral">Lunatic</span><span class="tool mine" title="Ferramenta autoral">Koffuster</span><span class="tool mine" title="Ferramenta autoral">Nullvein SQL</span>
+      <span class="tool mine" title="Ferramenta autoral">Lunatic</span><span class="tool mine" title="Ferramenta autoral">Koffuster</span><span class="tool mine" title="Ferramenta autoral">Nullvein SQL</span><span class="tool mine" title="Ferramenta autoral">Lubash</span>
       <span class="tool">Burp Suite</span><span class="tool">OWASP ZAP</span><span class="tool">Nmap</span>
       <span class="tool">ffuf</span><span class="tool">Gobuster</span><span class="tool">HTTPX</span>
       <span class="tool">Katana</span><span class="tool">Nuclei</span><span class="tool">OpenVAS</span>
@@ -602,7 +696,7 @@ nullvein -u "http://localhost:8080/product?id=1" -v</code></pre></div>
 <!-- CONTATO -->
 <footer id="contato">
   <div class="wrap">
-    <div class="kicker">07 // CONTATO</div>
+    <div class="kicker">08 // CONTATO</div>
     <p class="mono" style="color:var(--white); font-size:15px;">Interessado em segurança de aplicações?</p>
     <p style="margin-top:10px;">
       <a href="https://www.linkedin.com/in/luna-ferreira-reges-7b717642a/" target="_blank" rel="noopener">LinkedIn</a> ·
