@@ -1,0 +1,354 @@
+[
+  {
+    "id": "unprotected-admin-functionality",
+    "nome": "Unprotected admin functionality",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Painel de administração exposto sem autenticação, com o caminho revelado em robots.txt.",
+    "vulnerabilidade": "Funcionalidade administrativa sem controle de acesso (segurança por obscuridade).",
+    "tecnicas": [
+      "Inspeção de robots.txt",
+      "Acesso direto a rota administrativa"
+    ],
+    "objetivo": "Excluir o usuário carlos pelo painel de administração.",
+    "metodologia": "Leitura de /robots.txt, identificação de /administrator-panel, acesso direto ao painel e exclusão do usuário carlos.",
+    "impacto": "Qualquer visitante, sem login, acessa uma função administrativa destrutiva (no laboratório, excluir usuários, inclusive administradores).",
+    "causa_raiz": "O controle dependia apenas de o endereço estar escondido; esconder o caminho não é controle de acesso.",
+    "recomendacoes": [
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado.",
+      "Negar por padrão e verificar permissões no back-end."
+    ],
+    "aprendizados": "Esconder o endereço não é controle de acesso.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "unprotected-admin-functionality-2",
+    "nome": "Unprotected admin functionality #2",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Caminho do painel de administração escondido apenas no front-end (JavaScript/código-fonte).",
+    "vulnerabilidade": "Rota administrativa exposta no front-end e sem autenticação no servidor.",
+    "tecnicas": [
+      "Análise de código-fonte",
+      "Análise da aba Network"
+    ],
+    "ferramentas": [
+      "DevTools"
+    ],
+    "objetivo": "Excluir o usuário carlos pelo painel de administração.",
+    "metodologia": "Análise do código-fonte e da aba Network do DevTools, localização da tag de admin e do caminho /admin-<aleatório> e exclusão do usuário.",
+    "impacto": "Qualquer pessoa que inspecione o JavaScript descobre a rota e acessa a função administrativa, pois o servidor não exigia autenticação.",
+    "causa_raiz": "O servidor não exigia autenticação na rota administrativa; a proteção era apenas esconder o caminho no cliente.",
+    "recomendacoes": [
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado."
+    ],
+    "aprendizados": "Tudo que o navegador sabe, um atacante também sabe.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-role-controlled-by-request-parameter",
+    "nome": "User role controlled by request parameter",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Cookie de papel Admin aceito pelo servidor sem validação, permitindo escalada de privilégio.",
+    "vulnerabilidade": "Escalada vertical de privilégios por cookie controlado pelo cliente.",
+    "tecnicas": [
+      "Manipulação de cookie",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "Cookie Manager"
+    ],
+    "objetivo": "Acessar o painel de administração e excluir o usuário carlos.",
+    "metodologia": "Login, acesso ao painel de administração (que retornou erro), abertura do Cookie Manager, alteração de Admin=false para Admin=true e exclusão do usuário carlos.",
+    "impacto": "Qualquer usuário autenticado se torna administrador alterando um cookie.",
+    "causa_raiz": "O papel do usuário era confiado ao cliente em vez de ser validado no servidor.",
+    "recomendacoes": [
+      "Não confiar em cookies de papel sem proteção e validação no servidor; preferir estado de sessão controlado pelo servidor."
+    ],
+    "aprendizados": "O papel deve ser validado no servidor, nunca confiado ao cliente.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-role-can-be-modified-in-user-profile",
+    "nome": "User role can be modified in user profile",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Mass assignment: o servidor aceitou o campo oculto roleid no JSON do perfil.",
+    "vulnerabilidade": "Mass assignment com escalada vertical de privilégios.",
+    "tecnicas": [
+      "Mass assignment",
+      "Reenvio de requisição com corpo JSON alterado",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "DevTools (Preserve log, Edit and Resend)"
+    ],
+    "objetivo": "Tornar-se administrador e excluir o usuário carlos.",
+    "metodologia": "Com o DevTools (Preserve log), localização do POST de change-email, reenvio com Edit and Resend incluindo roleid: 2 no corpo, acesso como administrador e exclusão do usuário carlos.",
+    "impacto": "Qualquer usuário autenticado vira administrador enviando um campo a mais que o formulário não mostra.",
+    "causa_raiz": "O servidor atualizava todos os campos recebidos, sem lista de campos permitidos.",
+    "recomendacoes": [
+      "Usar lista explícita de campos permitidos para atualizações de perfil, evitando mass assignment."
+    ],
+    "aprendizados": "O servidor não deve atualizar tudo o que chega na requisição.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-id-controlled-by-request-parameter",
+    "nome": "User ID controlled by request parameter",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "IDOR em URL: o servidor entregava a conta de qualquer usuário via parâmetro id (escalada horizontal).",
+    "vulnerabilidade": "IDOR (Insecure Direct Object Reference), com acesso horizontal indevido.",
+    "tecnicas": [
+      "IDOR",
+      "Enumeração de identificadores",
+      "Escalada horizontal"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Obter a API key do usuário carlos e enviá-la para concluir o laboratório.",
+    "metodologia": "No Burp Repeater, troca do número do id e enumeração até encontrar a conta de carlos, leitura da API key e envio da solução.",
+    "impacto": "Qualquer usuário autenticado lê dados de qualquer outro usuário trocando um número; é o equivalente web do BOLA em APIs.",
+    "causa_raiz": "O servidor confiava no id enviado pelo cliente sem checar o dono do recurso.",
+    "recomendacoes": [
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado.",
+      "Criar testes automatizados de autorização para usuários com papéis e proprietários de recursos diferentes."
+    ],
+    "aprendizados": "Identificadores controlados pelo cliente exigem checagem de propriedade no servidor.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-idor-with-guid",
+    "nome": "User IDOR with GUID",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-19",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "IDOR com GUID: o identificador, difícil de adivinhar, era vazado como autor dos posts do blog.",
+    "vulnerabilidade": "IDOR com identificador GUID exposto publicamente.",
+    "tecnicas": [
+      "IDOR",
+      "Descoberta de identificador vazado"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Obter a API key do usuário carlos e enviá-la para concluir o laboratório.",
+    "metodologia": "Navegação no blog, clique no autor de um post, captura do GUID de carlos, requisição a /my-account?id=<GUID> no Repeater, leitura da API key e envio da solução.",
+    "impacto": "O próprio site expõe o GUID de qualquer autor, permitindo acessar a conta de outros usuários.",
+    "causa_raiz": "Dependência do formato 'inadivinhável' do identificador em vez de checagem do dono no servidor.",
+    "recomendacoes": [
+      "Verificar, em cada consulta, se o usuário autenticado tem permissão sobre o recurso solicitado."
+    ],
+    "aprendizados": "GUID não é segredo; esconder o formato do identificador não substitui checar o dono.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-id-controlled-by-request-parameter-with-data-leakage-in-redirect",
+    "nome": "User ID controlled by request parameter with data leakage in redirect",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "IDOR direto com vazamento de dados no corpo de uma resposta de redirecionamento (302).",
+    "vulnerabilidade": "IDOR e exposição de dados sensíveis em resposta de redirecionamento.",
+    "tecnicas": [
+      "IDOR",
+      "Comparação de respostas com sessão válida e inválida",
+      "Análise de respostas 200 e 302"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Obter a API key do usuário carlos e enviá-la para concluir o laboratório.",
+    "metodologia": "Com sessão válida, GET /my-account?id=carlos retornou 200 com a conta de carlos. Com sessão inválida, a resposta foi 302 para /login, mas o corpo já continha usuário e API key.",
+    "observacoes": "Antes de explorar o IDOR, a mesma chave já havia sido vista, sem querer, no corpo de uma resposta 302.",
+    "impacto": "O servidor renderiza antes de checar o dono: com sessão boa entrega os dados direto (200), com sessão ruim entrega dentro do redirecionamento (302).",
+    "causa_raiz": "O servidor confia no id do cliente e monta a resposta antes de verificar o dono.",
+    "recomendacoes": [
+      "Fazer a checagem de autorização antes de montar a resposta.",
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado."
+    ],
+    "aprendizados": "Redirecionamento não é controle de acesso.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "user-id-controlled-by-request-parameter-with-password-disclosure",
+    "nome": "User ID controlled by request parameter with password disclosure",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "IDOR em que a página de conta do administrador devolvia a senha pré-preenchida no HTML.",
+    "vulnerabilidade": "IDOR combinado com divulgação de senha no HTML da resposta.",
+    "tecnicas": [
+      "IDOR",
+      "Inspeção de HTML da resposta",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Acessar a conta do administrador e excluir o usuário carlos.",
+    "metodologia": "Seguindo a descrição do laboratório (campo mascarado), requisição a /my-account?id=administrator no Repeater, localização da senha no atributo value do campo no HTML, logout, login como administrator, exclusão de carlos e envio da solução.",
+    "observacoes": "No meio do caminho houve um erro: a tentativa de login usou o token CSRF no campo de senha, quando o valor correto estava no atributo value do campo.",
+    "impacto": "Quem lê a resposta vê o valor cru; trocar o id entregou a conta e a credencial de outro usuário.",
+    "causa_raiz": "O servidor entrega o segredo no HTML e conta apenas com o navegador para não exibi-lo.",
+    "recomendacoes": [
+      "Não incluir senhas ou segredos em HTML, respostas de redirecionamento ou dados de interface.",
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado."
+    ],
+    "aprendizados": "Máscara de input é cosmética de interface, não controle de segurança.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "insecure-direct-object-references",
+    "nome": "Insecure direct object references (download de transcript)",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "IDOR em arquivo: o endpoint de download entregava transcripts por número sequencial sem checar o dono.",
+    "vulnerabilidade": "IDOR em download de arquivo com identificador sequencial.",
+    "tecnicas": [
+      "IDOR",
+      "Identificador previsível",
+      "Enumeração"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Obter a credencial presente em um transcript de outro usuário e fazer login com ela.",
+    "metodologia": "Após usar o live chat, percebeu-se que a URL de download usava um número (e não um nome); no Repeater, troca do número do próprio transcript por 1, o que retornou um transcript de outro usuário contendo uma credencial, usada para o login.",
+    "impacto": "Arquivos acessíveis por id sequencial entregam dados alheios; aqui, uma credencial dentro de uma conversa.",
+    "causa_raiz": "Identificador previsível sem checagem de dono.",
+    "recomendacoes": [
+      "Aplicar autorização no servidor em cada endpoint, objeto e ação sensível, com base na identidade autenticada e no recurso solicitado."
+    ],
+    "aprendizados": "IDOR não precisa ser uma página: um arquivo por id sequencial também expõe dados de terceiros.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "url-based-access-control-can-be-circumvented",
+    "nome": "URL-based access control can be circumvented",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Controle de acesso baseado em URL contornado pelo cabeçalho X-Original-Url.",
+    "vulnerabilidade": "Bypass de controle de acesso por URL (confused deputy) via cabeçalho X-Original-Url.",
+    "tecnicas": [
+      "Manipulação de cabeçalho HTTP (X-Original-Url)",
+      "Comparação de respostas"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Acessar o painel de administração e excluir o usuário carlos.",
+    "metodologia": "GET /admin retornou 403. No Repeater, GET / com X-Original-Url: /admin abriu o painel. Para excluir, a rota ficou no cabeçalho e o username na URL real (GET /?username=carlos com X-Original-Url: /admin/delete), com resposta 302 e usuário removido.",
+    "impacto": "O front-end bloqueava /admin, mas o back-end aceitava a rota indicada pelo cliente no cabeçalho.",
+    "causa_raiz": "A rota efetiva era decidida por um dado escrito pelo cliente.",
+    "recomendacoes": [
+      "Autorizar na rota interna e não na rota anunciada, com base no usuário autenticado."
+    ],
+    "aprendizados": "Controle baseado em URL é frágil quando existem várias versões da URL (navegador, proxy, cabeçalho).",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "method-based-access-control-can-be-circumvented",
+    "nome": "Method-based access control can be circumvented",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Controle de acesso aplicado de forma inconsistente entre métodos HTTP aceitos pela mesma rota.",
+    "vulnerabilidade": "Bypass de controle de acesso por troca do verbo HTTP.",
+    "tecnicas": [
+      "Troca de método HTTP",
+      "Captura e repetição de requisição",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Promover o usuário wiener a administrador.",
+    "metodologia": "Logado como administrador, captura da requisição de upgrade (POST /admin-roles). Como wiener, o POST retornou 401, mas o GET na mesma rota com os mesmos parâmetros na query string, com sessão ativa, retornou 302 para /admin e concluiu a promoção.",
+    "observacoes": "Houve um erro no meio: foi copiado um cookie antigo (a sessão muda a cada resposta no laboratório) e o 401 mascarou a sessão expirada.",
+    "impacto": "O controle só protegia o método POST; o mesmo recurso ficava aberto via GET.",
+    "causa_raiz": "A autorização foi aplicada ao método lembrado pelo desenvolvedor, não a todos os métodos aceitos.",
+    "recomendacoes": [
+      "Aplicar as mesmas regras de autorização a todos os métodos HTTP aceitos pela rota."
+    ],
+    "aprendizados": "Antes de interpretar um 401 como falta de permissão, confirmar que a sessão ainda é válida; cookies têm vida curta.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "multi-step-process-with-no-access-control-on-one-step",
+    "nome": "Multi-step process with no access control on one step",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Fluxo de upgrade de cargo em duas etapas, com a etapa final sem verificação de autorização.",
+    "vulnerabilidade": "Falta de controle de acesso em etapa de um processo em múltiplas etapas.",
+    "tecnicas": [
+      "Mapeamento de fluxo em etapas",
+      "Envio direto da etapa final",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Promover o usuário wiener a administrador.",
+    "metodologia": "Logado como administrador, mapeamento do fluxo e captura das etapas no Repeater. Como wiener (com cookie novo), envio direto da etapa final (GET /admin-roles?action=upgrade&confirmed=true&username=wiener), com resposta 302 para /admin.",
+    "observacoes": "Funcionou na primeira tentativa.",
+    "impacto": "A etapa de confirmação aceitava qualquer sessão, bastando enviá-la diretamente.",
+    "causa_raiz": "O estado do fluxo morava em um parâmetro da requisição (confirmed=true) e a etapa final não validava a autorização.",
+    "recomendacoes": [
+      "Aplicar autorização em todas as etapas do fluxo, incluindo confirmações."
+    ],
+    "aprendizados": "Processos em etapas exigem autorização em todas as etapas, não só na primeira.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  },
+  {
+    "id": "referer-based-access-control",
+    "nome": "Referer-based access control",
+    "plataforma": "PortSwigger Web Security Academy",
+    "data": "2026-10-20",
+    "categoria": "Access control",
+    "status": "resolvido",
+    "resumo": "Controle de acesso que confiava no cabeçalho Referer para autorizar uma ação administrativa.",
+    "vulnerabilidade": "Autorização baseada em dado controlado pelo cliente (cabeçalho Referer).",
+    "tecnicas": [
+      "Manipulação de cabeçalho HTTP (Referer)",
+      "Captura e repetição de requisição",
+      "Escalada vertical de privilégios"
+    ],
+    "ferramentas": [
+      "Burp Suite Repeater"
+    ],
+    "objetivo": "Promover o usuário wiener a administrador.",
+    "metodologia": "Mapeamento como administrador (requisição de upgrade com Referer apontando para /admin) e, como wiener, reenvio da mesma requisição com o Referer apontando para /admin, resposta 302 para /admin e privilégio obtido.",
+    "observacoes": "Resolvido já na primeira rodada.",
+    "impacto": "O servidor permitia a ação administrativa se a requisição parecesse vir de /admin, mas o Referer é escrito pelo cliente.",
+    "causa_raiz": "Autorização baseada em dado que o cliente controla.",
+    "recomendacoes": [
+      "Autorizar no servidor, pelo usuário autenticado, e nunca pelo caminho anunciado ou por cabeçalhos."
+    ],
+    "aprendizados": "Mesmo padrão dos labs de URL e de método: autorização baseada em dado client-side.",
+    "link_relatorio": "labs/relatorios/Relatorio_Estudo_Pratico_PortSwigger_Luna_Ferreira_Reges.pdf"
+  }
+]

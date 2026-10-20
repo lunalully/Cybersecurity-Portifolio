@@ -111,9 +111,10 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
 .term .copy:hover{ border-color:var(--red); color:var(--red); }
 .term pre{ padding-right:84px; }
 .tool-grid{ display:grid; gap:28px; }
+.tool-grid > *{ min-width:0; }
 .stack-label{ font-size:12px; color:var(--gray); margin:0 0 14px; }
 .stack-label.first{ margin-top:0; }
-@media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } .case{ padding:22px; } .hero{ padding:80px 0 60px; } }
+@media(max-width:640px){ .hero h1{ font-size:30px; } nav a{ margin-left:14px; font-size:11px; } .case{ padding:22px; } .hero{ padding:80px 0 60px; } nav .wrap{ height:auto; min-height:64px; padding-top:8px; padding-bottom:8px; } }
 /* RADIO LUNATIC */
 .radio-wrap{ position:fixed; right:16px; bottom:16px; z-index:90; display:flex; flex-direction:column; align-items:flex-end; gap:8px; font-family:'DejaVu Sans Mono','DejaVu Sans',monospace; max-width:calc(100vw - 32px); }
 .radio-launcher{ background:linear-gradient(180deg,var(--panel2),var(--panel)); color:var(--white); border:1px solid var(--red); border-radius:0; padding:9px 14px 9px 12px; font:inherit; font-size:12px; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; display:inline-flex; align-items:center; gap:10px; box-shadow:0 0 0 1px rgba(255,42,77,.18), 0 0 14px rgba(255,42,77,.28), 0 6px 18px rgba(0,0,0,.55); transition:box-shadow .2s, border-color .2s, background .2s; }
@@ -157,6 +158,53 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
 .radio-fallback{ padding:10px 0 0; font-size:12px; color:var(--gray2); }
 @media(max-width:640px){ .radio-wrap{ right:10px; bottom:10px; } .radio-panel{ width:260px; } .radio-launcher{ padding:7px 10px; font-size:11px; } }
 @media (prefers-reduced-motion:reduce){ .radio-wrap.is-playing .radio-launcher .radio-dot{ animation:none; } .radio-wrap.is-playing .radio-eq i{ animation:none; transform:scaleY(.7); } .radio-launcher{ transition:none; } }
+/* ---------- CTFs & LABS ---------- */
+.labs-kpis{ margin:0 0 24px; }
+.labs-controls{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:12px; margin-bottom:20px; }
+.labs-field{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+.labs-field label{ font-family:'DejaVu Sans Mono',monospace; font-size:11px; letter-spacing:1px; color:var(--gray); text-transform:uppercase; }
+.labs-field input,.labs-field select{ width:100%; background:var(--panel); color:#d7d7dc; border:1px solid var(--line); border-radius:2px; padding:9px 10px; font-family:'DejaVu Sans',sans-serif; font-size:13px; }
+.labs-field input:focus,.labs-field select:focus{ outline:2px solid var(--red); outline-offset:1px; border-color:var(--red); }
+.labs-controls[hidden]{ display:none; }
+.labs-count{ font-family:'DejaVu Sans Mono',monospace; font-size:12px; color:var(--gray); margin-bottom:14px; }
+.labs-cats{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+.labs-cat-head{ display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:var(--panel); color:#d7d7dc; border:1px solid var(--line); border-radius:4px; padding:12px 14px; cursor:pointer; font:inherit; }
+.labs-cat-head:hover,.labs-cat-head[aria-expanded="true"]{ border-color:var(--red); }
+.labs-cat-head:focus-visible,.labs-row:focus-visible,.labs-more:focus-visible{ outline:2px solid var(--red); outline-offset:1px; }
+.labs-cat-ind{ flex:none; width:14px; color:var(--red); font-family:'DejaVu Sans Mono',monospace; }
+.labs-cat-name{ font-family:'DejaVu Sans Mono',monospace; color:var(--white); font-size:14px; font-weight:700; }
+.labs-cat-meta{ font-family:'DejaVu Sans Mono',monospace; font-size:11.5px; color:var(--gray); min-width:0; }
+.labs-panel{ border:1px solid var(--line); border-top:0; border-radius:0 0 4px 4px; background:var(--panel); }
+.labs-panel[hidden]{ display:none; }
+.labs-panel ul{ list-style:none; }
+.labs-panel li{ border-top:1px solid var(--line); }
+.labs-panel li:first-child{ border-top:0; }
+.labs-row{ display:grid; grid-template-columns:92px minmax(0,1fr) auto; grid-template-areas:"date name chip" "date sum chip"; column-gap:12px; row-gap:1px; align-items:center; width:100%; text-align:left; background:transparent; color:#d7d7dc; border:0; padding:7px 14px; cursor:pointer; font:inherit; }
+.labs-row:hover{ background:var(--panel2); }
+.labs-row-date{ grid-area:date; font-family:'DejaVu Sans Mono',monospace; font-size:11.5px; color:var(--gray); }
+.labs-row-name{ grid-area:name; color:var(--white); font-size:13.5px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.labs-row-sum{ grid-area:sum; color:var(--gray2); font-size:12px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.labs-row .chip{ grid-area:chip; justify-self:end; }
+.labs-more{ display:block; width:100%; background:var(--panel2); color:var(--gray2); border:0; border-top:1px solid var(--line); padding:9px 14px; font-family:'DejaVu Sans Mono',monospace; font-size:12px; cursor:pointer; }
+.labs-more:hover{ color:var(--red); }
+.labs-empty,.labs-error{ padding:18px 20px; border:1px dashed var(--line); border-radius:6px; color:var(--gray2); font-size:14px; background:var(--panel); }
+.labs-error{ border-color:var(--red); }
+.labs-dialog{ width:min(760px,calc(100vw - 24px)); max-height:calc(100vh - 32px); margin:auto; padding:0; background:var(--panel); color:#d7d7dc; border:1px solid var(--line); border-top:2px solid var(--red); border-radius:6px; }
+.labs-dialog::backdrop{ background:rgba(0,0,0,.75); }
+.labs-dialog-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:22px 26px 12px; border-bottom:1px solid var(--line); }
+.labs-dialog-head h3{ font-family:'DejaVu Sans Mono',monospace; color:var(--white); font-size:18px; line-height:1.4; }
+.labs-dialog-head h3:focus{ outline:none; }
+.labs-close{ flex:none; background:var(--panel2); color:var(--gray2); border:1px solid var(--line); border-radius:2px; padding:6px 12px; font-family:'DejaVu Sans Mono',monospace; font-size:12px; cursor:pointer; }
+.labs-close:hover{ border-color:var(--red); color:var(--red); }
+.labs-dialog-body{ padding:8px 26px 24px; overflow-y:auto; max-height:calc(100vh - 150px); }
+.labs-dialog-body h4{ font-family:'DejaVu Sans Mono',monospace; font-size:12px; letter-spacing:2px; color:var(--red); margin:20px 0 6px; text-transform:uppercase; }
+.labs-dialog-body p{ font-size:14px; color:var(--gray2); white-space:pre-line; }
+.labs-dialog-body ul{ margin:4px 0 0 18px; font-size:13.5px; color:#c9c9d0; }
+.labs-dialog-body a{ color:var(--red); }
+.labs-warn{ margin-top:16px; }
+@media(prefers-reduced-motion:reduce){ .labs-cat-head,.labs-row,.labs-more{ transition:none; } }
+@media(max-width:900px){ .labs-controls{ grid-template-columns:1fr 1fr; } .labs-field.labs-search{ grid-column:1 / -1; } }
+@media(max-width:640px){ .labs-controls{ grid-template-columns:1fr; } .labs-cat-head{ flex-wrap:wrap; } .labs-cat-meta{ flex-basis:100%; padding-left:24px; } .labs-row{ grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"date chip" "name name" "sum sum"; padding:8px 12px; row-gap:3px; } .labs-row-sum{ display:none; } .labs-dialog-head{ padding:16px 16px 10px; } .labs-dialog-body{ padding:6px 16px 18px; } }
 </style>
 </head>
 <body>
@@ -172,6 +220,7 @@ nav .links{ display:flex; flex-wrap:wrap; justify-content:flex-end; }
 <a href="#enois">É nois</a>
 <a href="#temmcode">TEMM CODE</a>
       <a href="#ferramentas">Ferramentas</a>
+      <a href="#labs">CTFs &amp; Labs</a>
       <a href="#habilidades">Stack</a>
       <a href="#contato">Contato</a>
     </div>
@@ -635,10 +684,41 @@ chmod +x lubash.sh
   </div>
 </section>
 
+<!-- CTFs & LABS -->
+<section id="labs">
+  <div class="wrap">
+    <div class="kicker">07 // CTFs &amp; LABS</div>
+    <h2>CTFs &amp; Labs</h2>
+    <p class="sec-intro">Registro dos meus estudos práticos em <b>laboratórios controlados</b>, criados para
+    treinar segurança ofensiva. Não são vulnerabilidades encontradas em sistemas reais nem pentest
+    profissional. Clique em um lab para ver o detalhe.</p>
+
+    <div class="kpis labs-kpis" id="labs-kpis" aria-live="polite"></div>
+
+    <div class="labs-controls" id="labs-controls" hidden>
+      <div class="labs-field labs-search"><label for="labs-q">Buscar por nome</label><input type="search" id="labs-q" autocomplete="off" placeholder="Ex.: IDOR, admin, Referer"></div>
+      <div class="labs-field"><label for="labs-plat">Plataforma</label><select id="labs-plat"></select></div>
+      <div class="labs-field"><label for="labs-st">Status</label><select id="labs-st"></select></div>
+      <div class="labs-field"><label for="labs-sort">Ordenar por data</label><select id="labs-sort"><option value="desc">Mais recentes primeiro</option><option value="asc">Mais antigos primeiro</option></select></div>
+    </div>
+
+    <p class="labs-count" id="labs-count" role="status" aria-live="polite"></p>
+    <div id="labs-list" aria-busy="true"><p class="labs-empty">Carregando labs...</p></div>
+
+    <dialog class="labs-dialog" id="labs-dialog" aria-labelledby="labs-dialog-title">
+      <div class="labs-dialog-head">
+        <h3 id="labs-dialog-title" tabindex="-1"></h3>
+        <button type="button" class="labs-close" id="labs-close" aria-label="Fechar detalhes do lab">Fechar</button>
+      </div>
+      <div class="labs-dialog-body" id="labs-dialog-body"></div>
+    </dialog>
+  </div>
+</section>
+
 <!-- HABILIDADES -->
 <section id="habilidades">
   <div class="wrap">
-    <div class="kicker">07 // HABILIDADES</div>
+    <div class="kicker">08 // HABILIDADES</div>
     <h2>Skills &amp; stack de trabalho</h2>
     <div class="skills">
       <div class="skillbox">
@@ -689,7 +769,7 @@ chmod +x lubash.sh
 <!-- CONTATO -->
 <footer id="contato">
   <div class="wrap">
-    <div class="kicker">08 // CONTATO</div>
+    <div class="kicker">09 // CONTATO</div>
     <p class="mono" style="color:var(--white); font-size:15px;">Interessado em segurança de aplicações?</p>
     <p style="margin-top:10px;">
       <a href="https://www.linkedin.com/in/luna-ferreira-reges-7b717642a/" target="_blank" rel="noopener">LinkedIn</a> ·
@@ -835,6 +915,366 @@ document.querySelectorAll('.copy').forEach(function(btn){
       } catch(err) {}
     });
   } catch(err) {}
+})();
+</script>
+
+<script>
+/* CTFs & Labs: renderização a partir de labs/labs.json (dados inseridos apenas via textContent) */
+(function(){
+  'use strict';
+  try {
+    var listEl = document.getElementById('labs-list');
+    if (!listEl) return;
+    var kpisEl = document.getElementById('labs-kpis');
+    var controls = document.getElementById('labs-controls');
+    var countEl = document.getElementById('labs-count');
+    var dlg = document.getElementById('labs-dialog');
+    var dlgTitle = document.getElementById('labs-dialog-title');
+    var dlgBody = document.getElementById('labs-dialog-body');
+    var closeBtn = document.getElementById('labs-close');
+    var f = {
+      q: document.getElementById('labs-q'), plat: document.getElementById('labs-plat'),
+      st: document.getElementById('labs-st'),
+      sort: document.getElementById('labs-sort')
+    };
+    var labs = [];
+    var lastFocus = null;
+    var PAGE = 8;
+    var openCat = null;
+    var shown = {};
+
+    function el(tag, cls, text){
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null && text !== '') n.textContent = String(text);
+      return n;
+    }
+    function str(v){ return (typeof v === 'string') ? v.trim() : ''; }
+    function arr(v){
+      if (Array.isArray(v)) return v.map(str).filter(Boolean);
+      var s = str(v); return s ? [s] : [];
+    }
+    function fmtDate(iso){
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str(iso));
+      return m ? m[3] + '/' + m[2] + '/' + m[1] : '';
+    }
+    function safeUrl(u){
+      u = str(u);
+      if (!u) return null;
+      try {
+        var abs = /^([a-z][a-z0-9+.\-]*:|\/\/)/i.test(u);
+        var parsed = new URL(u, location.href);
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return null;
+        return { href: abs ? parsed.href : u, external: abs };
+      } catch (e) { return null; }
+    }
+    function link(label, url, cls){
+      var s = safeUrl(url);
+      if (!s) return null;
+      var a = el('a', cls, label);
+      a.href = s.href;
+      if (s.external) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      return a;
+    }
+    function norm(s){ return str(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+
+    function fillSelect(sel, label, values){
+      sel.textContent = '';
+      var o = el('option', null, label); o.value = ''; sel.appendChild(o);
+      values.forEach(function(v){ var x = el('option', null, v); x.value = v; sel.appendChild(x); });
+    }
+    function uniq(key){
+      var seen = {}, out = [];
+      labs.forEach(function(l){ var v = str(l[key]); if (v && !seen[v]) { seen[v] = 1; out.push(v); } });
+      return out.sort(function(a, b){ return a.localeCompare(b, 'pt-BR'); });
+    }
+
+    function renderKpis(){
+      kpisEl.textContent = '';
+      var resolved = labs.filter(function(l){ return norm(l.status) === 'resolvido'; }).length;
+      [[labs.length, 'Labs registrados'], [resolved, 'Resolvidos'], [uniq('categoria').length, uniq('categoria').length === 1 ? 'Categoria' : 'Categorias']].forEach(function(k){
+        var box = el('div', 'kpi');
+        box.appendChild(el('div', 'v', k[0]));
+        box.appendChild(el('div', 'l', k[1]));
+        kpisEl.appendChild(box);
+      });
+    }
+
+    function filtered(){
+      var q = norm(f.q.value);
+      var res = labs.filter(function(l){
+        if (f.plat.value && str(l.plataforma) !== f.plat.value) return false;
+        if (f.st.value && str(l.status) !== f.st.value) return false;
+        if (q && norm(l.nome).indexOf(q) === -1) return false;
+        return true;
+      });
+      var dir = f.sort.value === 'asc' ? 1 : -1;
+      res.sort(function(a, b){
+        var da = str(a.data), db = str(b.data);
+        if (da === db) return str(a.nome).localeCompare(str(b.nome), 'pt-BR');
+        if (!da) return 1;
+        if (!db) return -1;
+        return da < db ? -dir : dir;
+      });
+      return res;
+    }
+
+    function catOf(l){ return str(l.categoria) || 'Sem categoria'; }
+    function latestOf(items){
+      var m = '';
+      items.forEach(function(l){ var d = str(l.data); if (d > m) m = d; });
+      return m;
+    }
+    function buildRow(l){
+      var li = document.createElement('li');
+      var b = el('button', 'labs-row');
+      b.type = 'button';
+      b.setAttribute('data-lab-id', str(l.id));
+      b.appendChild(el('span', 'labs-row-date', fmtDate(l.data) || '--/--/----'));
+      b.appendChild(el('span', 'labs-row-name', l.nome));
+      if (str(l.status)) b.appendChild(el('span', 'chip' + (norm(l.status) === 'resolvido' ? ' hot' : ''), l.status));
+      if (str(l.resumo)) b.appendChild(el('span', 'labs-row-sum', l.resumo));
+      b.addEventListener('click', function(){ openLab(l.id, b); });
+      li.appendChild(b);
+      return li;
+    }
+
+    function toggleCat(name){
+      openCat = (openCat === name) ? null : name;
+      shown = {};
+      renderList(false, name);
+    }
+
+    function renderList(autoOpen, focusCat){
+      var res = filtered();
+      listEl.textContent = '';
+      listEl.setAttribute('aria-busy', 'false');
+      countEl.textContent = res.length + ' de ' + labs.length + ' labs';
+      if (!res.length) {
+        listEl.appendChild(el('p', 'labs-empty', 'Nenhum lab encontrado com os filtros atuais.'));
+        return;
+      }
+      var groups = {}, order = [];
+      res.forEach(function(l){
+        var c = catOf(l);
+        if (!groups[c]) { groups[c] = []; order.push(c); }
+        groups[c].push(l);
+      });
+      order.sort(function(a, b){
+        var la = latestOf(groups[a]), lb = latestOf(groups[b]);
+        if (la !== lb) return la < lb ? 1 : -1;
+        return a.localeCompare(b, 'pt-BR');
+      });
+      if (autoOpen && f.q.value.trim()) { openCat = order[0]; shown = {}; }
+      else if (openCat && !groups[openCat]) openCat = null;
+
+      var ul = el('ul', 'labs-cats');
+      var focusBtn = null;
+      order.forEach(function(c, i){
+        var items = groups[c];
+        var isOpen = (c === openCat);
+        var li = document.createElement('li');
+        var head = el('button', 'labs-cat-head');
+        head.type = 'button';
+        head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        head.setAttribute('aria-controls', 'labs-panel-' + i);
+        head.appendChild(el('span', 'labs-cat-ind', isOpen ? '\u25BE' : '\u25B8'));
+        head.appendChild(el('span', 'labs-cat-name', c));
+        var resolved = items.filter(function(l){ return norm(l.status) === 'resolvido'; }).length;
+        var last = fmtDate(latestOf(items));
+        var meta = items.length + (items.length === 1 ? ' lab' : ' labs') + ' \u00B7 ' +
+          resolved + (resolved === 1 ? ' resolvido' : ' resolvidos') + (last ? ' \u00B7 \u00FAltimo em ' + last : '');
+        head.appendChild(el('span', 'labs-cat-meta', meta));
+        head.addEventListener('click', function(){ toggleCat(c); });
+        li.appendChild(head);
+
+        var panel = el('div', 'labs-panel');
+        panel.id = 'labs-panel-' + i;
+        panel.hidden = !isOpen;
+        if (isOpen) {
+          var n = Math.min(items.length, shown[c] || PAGE);
+          var rows = el('ul');
+          items.slice(0, n).forEach(function(l){ rows.appendChild(buildRow(l)); });
+          panel.appendChild(rows);
+          if (items.length > n) {
+            var rest = items.length - n;
+            var more = el('button', 'labs-more', 'Mostrar mais (' + rest + (rest === 1 ? ' restante)' : ' restantes)'));
+            more.type = 'button';
+            more.addEventListener('click', function(){
+              shown[c] = n + PAGE;
+              renderList(false);
+              var firstNew = listEl.querySelectorAll('.labs-row')[n];
+              if (firstNew) firstNew.focus();
+            });
+            panel.appendChild(more);
+          }
+        }
+        li.appendChild(panel);
+        ul.appendChild(li);
+        if (focusCat === c) focusBtn = head;
+      });
+      listEl.appendChild(ul);
+      if (focusBtn) focusBtn.focus();
+    }
+
+    function section(title, node){
+      if (!node) return;
+      dlgBody.appendChild(el('h4', null, ++secN + '. ' + title));
+      dlgBody.appendChild(node);
+    }
+    var secN = 0;
+    function textNode(v){ var s = str(v); return s ? el('p', null, s) : null; }
+    function listNode(v){
+      var a = arr(v); if (!a.length) return null;
+      var ul = el('ul');
+      a.forEach(function(x){ ul.appendChild(el('li', null, x)); });
+      return ul;
+    }
+    function box(){ return document.createElement('div'); }
+
+    function buildDetail(l){
+      secN = 0;
+      dlgBody.textContent = '';
+      dlgTitle.textContent = str(l.nome);
+
+      var id = box(), meta = el('div', 'meta');
+      [l.status, l.categoria, l.dificuldade].forEach(function(v, i){
+        if (str(v)) meta.appendChild(el('span', 'chip' + (i === 0 && norm(v) === 'resolvido' ? ' hot' : ''), (i === 2 ? 'Dificuldade: ' : '') + str(v)));
+      });
+      if (meta.childNodes.length) id.appendChild(meta);
+      section('Identificação', id.childNodes.length ? id : null);
+
+      var dp = [str(l.plataforma), fmtDate(l.data)].filter(Boolean).join(' · ');
+      section('Data e plataforma', dp ? el('p', null, dp) : null);
+
+      section('Objetivo', textNode(l.objetivo));
+      section('Cenário', textNode(l.cenario));
+
+      var met = box();
+      if (str(l.metodologia)) met.appendChild(textNode(l.metodologia));
+      var tec = listNode(l.tecnicas), fer = listNode(l.ferramentas);
+      if (tec) { met.appendChild(el('p', null, 'Técnicas:')); met.appendChild(tec); }
+      if (fer) { met.appendChild(el('p', null, 'Ferramentas:')); met.appendChild(fer); }
+      section('Metodologia', met.childNodes.length ? met : null);
+
+      section('Vulnerabilidade / conceito', textNode(l.vulnerabilidade));
+
+      var ev = box();
+      if (str(l.observacoes)) ev.appendChild(textNode(l.observacoes));
+      if (Array.isArray(l.evidencias) && l.evidencias.length) {
+        var ul = el('ul');
+        l.evidencias.forEach(function(e){
+          if (!e || typeof e !== 'object') return;
+          var li = el('li', null, str(e.descricao));
+          var a = link('abrir arquivo', e.arquivo);
+          if (a) { if (li.textContent) li.appendChild(document.createTextNode(' - ')); li.appendChild(a); }
+          if (li.childNodes.length) ul.appendChild(li);
+        });
+        if (ul.childNodes.length) ev.appendChild(ul);
+      }
+      section('Evidências e observações', ev.childNodes.length ? ev : null);
+
+      section('Impacto no cenário', textNode(l.impacto));
+      section('Causa raiz', textNode(l.causa_raiz));
+      section('Recomendações', listNode(l.recomendacoes));
+      section('Aprendizados', textNode(l.aprendizados));
+
+      var refs = box(), ul2 = el('ul');
+      function add(label, url){
+        var a = link(label, url);
+        if (a) { var li = document.createElement('li'); li.appendChild(a); ul2.appendChild(li); }
+      }
+      add('Página do lab', l.link_lab);
+      add('Relatório do estudo (PDF)', l.link_relatorio);
+      if (Array.isArray(l.referencias)) l.referencias.forEach(function(r){
+        if (r && typeof r === 'object') add(str(r.titulo) || str(r.url), r.url);
+      });
+      if (ul2.childNodes.length) refs.appendChild(ul2);
+      section('Referências e links', refs.childNodes.length ? refs : null);
+
+      dlgBody.appendChild(el('div', 'note labs-warn', 'Exercício realizado em ambiente controlado de estudo. Os resultados não representam testes em sistemas reais.'));
+    }
+
+    function setHash(h){
+      try { history.replaceState(null, '', h || (location.pathname + location.search)); } catch (e) {}
+    }
+    function openLab(id, trigger){
+      var l = labs.filter(function(x){ return x.id === id; })[0];
+      if (!l) return;
+      lastFocus = trigger || null;
+      buildDetail(l);
+      dlgBody.scrollTop = 0;
+      if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); }
+      else dlg.setAttribute('open', '');
+      dlgTitle.focus();
+      setHash('#lab-' + encodeURIComponent(id));
+    }
+    function closeLab(){
+      if (typeof dlg.close === 'function') { if (dlg.open) dlg.close(); }
+      else dlg.removeAttribute('open');
+    }
+    dlg.addEventListener('close', function(){
+      if (/^#lab-/.test(location.hash)) setHash('#labs');
+      if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+    });
+    closeBtn.addEventListener('click', closeLab);
+    dlg.addEventListener('click', function(e){ if (e.target === dlg) closeLab(); });
+
+    function openFromHash(){
+      var m = /^#lab-(.+)$/.exec(location.hash);
+      if (!m) return;
+      var id; try { id = decodeURIComponent(m[1]); } catch (e) { return; }
+      if (dlg.open) return;
+      var l = labs.filter(function(x){ return x.id === id; })[0];
+      if (!l) return;
+      var c = catOf(l);
+      var vis = filtered().filter(function(x){ return catOf(x) === c; });
+      var idx = vis.indexOf(l);
+      if (idx === -1) {
+        f.q.value = ''; f.plat.value = ''; f.st.value = ''; f.sort.value = 'desc';
+        vis = filtered().filter(function(x){ return catOf(x) === c; });
+        idx = vis.indexOf(l);
+      }
+      openCat = c;
+      shown = {};
+      shown[c] = Math.max(PAGE, idx + 1);
+      renderList(false);
+      var btn = listEl.querySelector('.labs-row[data-lab-id="' + (window.CSS && CSS.escape ? CSS.escape(id) : id.replace(/["\\]/g, '')) + '"]');
+      openLab(id, btn);
+    }
+
+    function showError(msg){
+      listEl.textContent = '';
+      listEl.setAttribute('aria-busy', 'false');
+      listEl.appendChild(el('p', 'labs-error', msg));
+    }
+
+    fetch('labs/labs.json', { cache: 'no-cache' })
+      .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(data){
+        if (!Array.isArray(data)) throw new Error('formato inválido');
+        labs = data.filter(function(l){ return l && typeof l === 'object' && str(l.id) && str(l.nome); });
+        renderKpis();
+        fillSelect(f.plat, 'Todas', uniq('plataforma'));
+        fillSelect(f.st, 'Todos', uniq('status'));
+        controls.hidden = false;
+        ['input', 'change'].forEach(function(ev){
+          [f.q, f.plat, f.st, f.sort].forEach(function(c){
+            c.addEventListener(ev, function(){ shown = {}; renderList(c === f.q); });
+          });
+        });
+        renderList();
+        openFromHash();
+        window.addEventListener('hashchange', openFromHash);
+      })
+      .catch(function(){
+        countEl.textContent = '';
+        showError('Não foi possível carregar a lista de labs agora. Se estiver abrindo o arquivo direto do disco, sirva o site por um servidor local; caso contrário, tente novamente mais tarde.');
+      });
+  } catch (e) {
+    var box0 = document.getElementById('labs-list');
+    if (box0) box0.textContent = 'Não foi possível exibir a seção de labs.';
+  }
 })();
 </script>
 </body>
